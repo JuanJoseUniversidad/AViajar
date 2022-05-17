@@ -5,15 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-/*@Database(
+@Database(
     entities = [
-        Categories::class,
-        CocktailIngredient::class,
-        Cocktails::class,
-        Ingredients::class
+        ExpenseEntity::class,
+        PersonEntity::class,
+        TravelEntity::class,
+        PersonExpenseEntity::class
     ],
     version = 1
-)*/
+)
 abstract class TravelsDatabaseAbstract: RoomDatabase() {
     abstract fun getDAO():ITravelsDAO
 }

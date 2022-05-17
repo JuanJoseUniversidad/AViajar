@@ -3,13 +3,20 @@ package es.uji.al394516.aviajar.database
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(
-
+    foreignKeys = [ForeignKey(
+        onDelete = CASCADE,
+        entity = TravelEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["tavelID"]
+    )]
 )
 data class ExpenseEntity(
-    @PrimaryKey val nombre:String,
+    @PrimaryKey val name:String,
     val tavelID:Int,
     val price:Float
     ):Parcelable {
@@ -21,7 +28,7 @@ data class ExpenseEntity(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(nombre)
+        parcel.writeString(name)
         parcel.writeInt(tavelID)
         parcel.writeFloat(price)
     }

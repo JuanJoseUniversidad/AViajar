@@ -62,8 +62,8 @@ class TravelsAdapter (val travelsList: List<Travel>, val presenterTR:PresenterTR
      */
     override fun onBindViewHolder(holder: TravelsAdapter.ViewHolder, position: Int) {
         with(travelsList[position]){
-            holder.titleText.text = travelEntity.name
-            holder.textPlace.text = travelEntity.place
+            holder.titleText.text = name
+            holder.textPlace.text = place
             holder.textPeople.text = people.size.toString()
         }
     }

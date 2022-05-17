@@ -3,13 +3,12 @@ package es.uji.al394516.aviajar.database
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-//TODO Hacer relaciones
+//TODO Hacer relaciones e index
 
-@Entity(
-
-)
+@Entity
 data class TravelEntity(
     @PrimaryKey val id: Int,
     val name:String,

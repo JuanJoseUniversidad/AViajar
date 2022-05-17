@@ -2,15 +2,29 @@ package es.uji.al394516.aviajar.classes
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.PrimaryKey
 import es.uji.al394516.aviajar.database.PersonEntity
 import es.uji.al394516.aviajar.database.TravelEntity
 
-class Person(val personEntity: PersonEntity):Parcelable {
-    constructor(parcel: Parcel) : this(parcel.readParcelable(PersonEntity::class.java.classLoader)!!) {
+typealias Personid = Int
+typealias Travelid = Int
+
+class Person(val id: Personid, val name:String ,val travelID:Travelid) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readInt()
+    ) {
+    }
+
+    constructor(personEntity: PersonEntity) : this(personEntity.id,personEntity.name,personEntity.travelID) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(personEntity, flags)
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeInt(travelID)
     }
 
     override fun describeContents(): Int {
@@ -26,4 +40,5 @@ class Person(val personEntity: PersonEntity):Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 }
