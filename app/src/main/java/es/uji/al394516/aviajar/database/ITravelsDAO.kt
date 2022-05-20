@@ -42,27 +42,27 @@ interface ITravelsDAO {
 
 
     @Query("SELECT * FROM TravelEntity ORDER BY name")
-    fun readAllTravels():Array<TravelEntity>
+    fun readAllTravels():List<TravelEntity>
 
     @Query("SELECT * FROM PersonEntity ORDER BY name")
-    fun readAllPersons():Array<PersonEntity>
+    fun readAllPersons():List<PersonEntity>
 
     @Query("SELECT * FROM ExpenseEntity ORDER BY name")
-    fun readAllExpenses():Array<ExpenseEntity>
+    fun readAllExpenses():List<ExpenseEntity>
 
     @Query("SELECT * FROM PersonExpenseEntity ORDER BY personID,expeseName")
-    fun readAllPersonExpense():Array<PersonExpenseEntity>
+    fun readAllPersonExpense():List<PersonExpenseEntity>
 
     //Todas las personas de un viaje(revisar)
     @Query("SELECT pe.* FROM PersonEntity AS pe LEFT JOIN TravelEntity AS te ON pe.travelID=te.id WHERE te.id = :travelId ORDER BY pe.name")
-    fun readAllPersonFromATravel(travelId:Int):Array<PersonEntity>
+    fun readAllPersonFromATravel(travelId:Int):List<PersonEntity>
 
     //Todos los gastos de un viaje
     @Query("SELECT ee.* FROM ExpenseEntity AS ee LEFT JOIN TravelEntity AS te ON ee.tavelID=te.id WHERE te.id = :travelId ORDER BY ee.name")
-    fun readAllExpensesFromATravel(travelId:Int):Array<ExpenseEntity>
+    fun readAllExpensesFromATravel(travelId:Int):List<ExpenseEntity>
 
     //Las parte dividida de un gasto entre las personas
     @Query("SELECT * FROM PersonExpenseEntity WHERE personID = :personID AND LOWER(expeseName) LIKE LOWER(:expenseName)")
-    fun readAllExpensePerPerson(personID:Int, expenseName:String):Array<PersonExpenseEntity>
+    fun readAllExpensePerPerson(personID:Int, expenseName:String):List<PersonExpenseEntity>
 
 }
