@@ -75,8 +75,8 @@ class TravelResultsActivity : AppCompatActivity(), ITravelResults {
     override fun startActivity(travel:Travel){
        // val intent = Intent(this@TravelResultsActivity,DescriptionActivity::class.java)
         val trDetail:Travel = travel;
-        intent.putExtra("Editar", true)
-        intent.putExtra("Travel", trDetail)
+        intent.putExtra("EditMode", true)
+        intent.putExtra("CurrentTravel", trDetail)
         startActivity(intent)
     }
 }

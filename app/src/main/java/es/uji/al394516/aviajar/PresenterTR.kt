@@ -8,16 +8,12 @@ import es.uji.al394516.aviajar.database.ExpenseEntity
 import es.uji.al394516.aviajar.database.PersonEntity
 import es.uji.al394516.aviajar.database.TravelEntity
 
-class PresenterTR(context: Context, activityView: TravelResultsActivity) {
-    lateinit var model:Model
-    lateinit var view:TravelResultsActivity
+class PresenterTR(val context: Context, val view: ITravelResults, val model: Model) {
 
     /**
      * Constructor
      */
     init {
-        model = Model(context);
-        view = activityView
         connect()
     }
 
