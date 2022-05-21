@@ -3,10 +3,16 @@ package es.uji.al394516.aviajar.database
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-
+    foreignKeys = [ForeignKey(
+        onDelete = ForeignKey.CASCADE,
+        entity = TravelEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["travelID"]
+    )]
 )
 data class PersonEntity(
     @PrimaryKey val id: Int,

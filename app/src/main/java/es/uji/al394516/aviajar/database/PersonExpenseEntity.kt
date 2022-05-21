@@ -3,26 +3,38 @@ package es.uji.al394516.aviajar.database
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-
+    foreignKeys = [ForeignKey(
+        onDelete = ForeignKey.CASCADE,
+        entity = PersonEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["personID"]
+    ),
+    ForeignKey(
+        entity = ExpenseEntity::class,
+        parentColumns = ["name"],
+        childColumns = ["expeseName"]
+    )],
+    primaryKeys = ["personID","expeseName"]
 )
 data class PersonExpenseEntity(
     val personID: Int,
-    val travelID:Int,
+    val expeseName:String,
     val price:Float
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.readFloat()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(personID)
-        parcel.writeInt(travelID)
+        parcel.writeString(expeseName)
         parcel.writeFloat(price)
     }
 
@@ -39,4 +51,5 @@ data class PersonExpenseEntity(
             return arrayOfNulls(size)
         }
     }
+
 }

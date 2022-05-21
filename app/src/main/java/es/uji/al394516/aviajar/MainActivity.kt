@@ -49,7 +49,10 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     override fun toTravelResults() {
-        TODO("Ir a la results activity")
+        val intent = Intent(this@MainActivity, TravelResultsActivity::class.java)
+        intent.putExtra("EditMode", true)
+
+        startActivity(intent)
     }
     //endregion
 }
