@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), IMainView {
     override fun toNextActivity() {
         val intent = Intent(this@MainActivity, TravelEditionActivity::class.java)
         intent.putExtra("EditMode", true)
-        intent.putExtra("CurrentTravel", null as Travel)
+        intent.putExtra("CurrentTravel", null as Travel?)
 
         startActivity(intent)
     }

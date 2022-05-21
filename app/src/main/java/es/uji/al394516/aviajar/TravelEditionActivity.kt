@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.view.iterator
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.uji.al394516.aviajar.classes.Travel
 
 class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
@@ -25,9 +26,9 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
 
     private lateinit var precioTotalText: TextView
 
-    private lateinit var anadirViaje: Button
-    private lateinit var editViaje: Button
-    private lateinit var deleteViaje: Button
+    private lateinit var anadirViaje: FloatingActionButton
+    private lateinit var editViaje: FloatingActionButton
+    private lateinit var deleteViaje: FloatingActionButton
 
     //presenter
     private lateinit var presenter: PresenterTE
@@ -41,7 +42,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
 
         //obtener datos que nos pasan las activities
         editMode = intent.getBooleanExtra("EditMode", false)
-        currentTravel = intent.extras!!.get("CurrentTravel") as Travel
+        currentTravel = intent.extras!!.get("CurrentTravel") as Travel?
 
         //referenciar los objetos del layout
         nameText = findViewById(R.id.nameEditText)
