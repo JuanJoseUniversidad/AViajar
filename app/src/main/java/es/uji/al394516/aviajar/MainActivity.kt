@@ -17,12 +17,6 @@ class MainActivity : AppCompatActivity(), IMainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //TODO("QUITAR ESTO CUANDO TERMINEMOS DE TESTEAR")
-        /*val intent = Intent(this@MainActivity,TravelResultsActivity::class.java)
-        intent.putExtra("Editar", true)
-
-        startActivity(intent)*/
-
         mirarViajesButton = findViewById(R.id.mirarViajesButton)
 
         presenter = PresenterMainView(this, Model(applicationContext))

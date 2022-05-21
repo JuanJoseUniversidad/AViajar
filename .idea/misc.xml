@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/adri2/AndroidStudioProjects/AViajar/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/adri2/AndroidStudioProjects/AViajar/app/src/main/res/layout/activity_travel_edition.xml" value="0.22826086956521738" />
         <entry key="app/src/main/res/layout/activity_travel_results.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/travel_item.xml" value="0.33" />
       </map>
