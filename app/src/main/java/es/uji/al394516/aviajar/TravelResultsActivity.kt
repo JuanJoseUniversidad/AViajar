@@ -28,7 +28,7 @@ class TravelResultsActivity : AppCompatActivity(), ITravelResults {
         loadingBar = findViewById(R.id.progressBar);
 
 
-        presenter = PresenterTR(applicationContext,this);
+        presenter = PresenterTR(this, Model(applicationContext))
 
         setTitle("All travels");
     }

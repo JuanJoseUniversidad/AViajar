@@ -8,7 +8,7 @@ import es.uji.al394516.aviajar.database.ExpenseEntity
 import es.uji.al394516.aviajar.database.PersonEntity
 import es.uji.al394516.aviajar.database.TravelEntity
 
-class PresenterTR(val context: Context, val view: ITravelResults, val model: Model) {
+class PresenterTR(val view: ITravelResults, val model: Model) {
 
     /**
      * Constructor
