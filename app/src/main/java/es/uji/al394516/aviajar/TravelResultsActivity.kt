@@ -31,8 +31,6 @@ class TravelResultsActivity : AppCompatActivity(), ITravelResults {
         presenter = PresenterTR(applicationContext,this);
 
         setTitle("All travels");
-        presenter.connect()
-
     }
 
 

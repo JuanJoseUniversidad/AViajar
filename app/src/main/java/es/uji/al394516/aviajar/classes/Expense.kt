@@ -23,6 +23,8 @@ class Expense(val name:String, val tavelID:Int, val price:Float, val person_mone
         parcel.writeString(name)
         parcel.writeInt(tavelID)
         parcel.writeFloat(price)
+        parcel.writeMap(person_money)
+
     }
 
     override fun describeContents(): Int {

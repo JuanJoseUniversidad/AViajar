@@ -63,6 +63,6 @@ interface ITravelsDAO {
 
     //Las parte dividida de un gasto entre las personas
     @Query("SELECT * FROM PersonExpenseEntity WHERE personID = :personID AND LOWER(expeseName) LIKE LOWER(:expenseName)")
-    fun readAllExpensePerPerson(personID:Int, expenseName:String):List<PersonExpenseEntity>
+    fun readAllExpensePerPerson(personID:Int, expenseName:String):PersonExpenseEntity
 
 }
