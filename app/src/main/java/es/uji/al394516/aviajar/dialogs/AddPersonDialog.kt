@@ -2,12 +2,15 @@ package es.uji.al394516.aviajar.dialogs
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import es.uji.al394516.aviajar.R
 import java.lang.ClassCastException
 
@@ -19,7 +22,7 @@ class AddPersonDialog : DialogFragment() {
         personListener = try {
             context as IDialogsFunctions
         } catch (e: ClassCastException) {
-            throw ClassCastException("$context does not listen to ratings")
+            throw ClassCastException("$context does not listen to add person")
         }
     }
 
@@ -34,20 +37,37 @@ class AddPersonDialog : DialogFragment() {
         with(view){
             text = findViewById(R.id.editTextPersonName)
 
+            val cancel = findViewById<Button>(R.id.Cancel)
+            cancel.setOnClickListener({
+                dismiss()
+            })
+
+            val add = findViewById<Button>(R.id.Add)
+            add.setOnClickListener({
+                if(text.text.toString() != ""){
+                    personListener.onAccept(text.text.toString())
+                    dismiss()
+                }else{
+                    text.setHintTextColor(Color.RED)
+                }
+            })
         }
 
         return AlertDialog.Builder(aux).run {
             setTitle("Add person")
             setView(view)
-            setPositiveButton("OK") { dialog, which ->
+            /*setPositiveButton("OK") { dialog, which ->
                 if(text.text.toString() != ""){
                     personListener.onAccept(text.text.toString())
+                    dialog.dismiss()
                 }else{
                     text.setHintTextColor(Color.RED)
                 }
             }
-            setNegativeButton("CANCEL") { dialog, which -> dialog.cancel() }
+            setNegativeButton("CANCEL") { dialog, which -> dialog.cancel() }*/
+
             create()
         }
     }
+
 }

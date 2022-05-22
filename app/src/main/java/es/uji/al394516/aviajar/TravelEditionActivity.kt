@@ -2,12 +2,15 @@ package es.uji.al394516.aviajar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.view.iterator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.uji.al394516.aviajar.classes.Travel
+import es.uji.al394516.aviajar.dialogs.AddPersonDialog
+import es.uji.al394516.aviajar.dialogs.IDialogsFunctions
 
 class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunctions {
 
