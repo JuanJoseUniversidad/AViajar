@@ -9,7 +9,7 @@ import androidx.core.view.iterator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.uji.al394516.aviajar.classes.Travel
 
-class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
+class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunctions {
 
     //variables a recibir de otras activities
     private var editMode : Boolean = false
@@ -59,6 +59,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
         editViaje = findViewById(R.id.editTravelActionButton)
         deleteViaje = findViewById(R.id.deleteTravelActionButton)
 
+        //eventos
+        anadirPersona.setOnClickListener {
+            createAddPersonDialog()
+        }
+
         //presenter
         presenter = PresenterTE(this, Model(applicationContext))
 
@@ -104,6 +109,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
             deleteViaje.visibility = View.VISIBLE
         }
     }
+
+    override fun createAddPersonDialog() {
+        val apDialog: AddPersonDialog = AddPersonDialog()
+        apDialog.show(supportFragmentManager,"addperson")
+    }
     //endregion
 
     /**
@@ -126,5 +136,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition {
             cardLL.getChildAt(1).visibility = invisible
             cardLL.getChildAt(2).visibility = invisible
         }
+    }
+
+    override fun onAccept(text: String) {
+        val inflater = LayoutInflater.from(this)
+
+        val linearLayout = personasScroll.findViewById<LinearLayout>(R.id.linearLayPersona)
+        val customLayout: View = inflater.inflate(R.layout.person_scrollview_layout, linearLayout, false)
+        customLayout.findViewById<TextView>(R.id.personName).text=text
+        linearLayout.addView(customLayout)
     }
 }
