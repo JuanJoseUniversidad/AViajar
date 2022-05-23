@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
@@ -14,7 +15,7 @@ import androidx.fragment.app.FragmentManager
 import es.uji.al394516.aviajar.R
 import java.lang.ClassCastException
 
-class AddPersonDialog : DialogFragment() {
+class AddPersonDialog(val title:String, val personLayout:View? = null) : DialogFragment() {
     private lateinit var personListener: IDialogsFunctions
 
     override fun onAttach(context: Context) {
@@ -45,7 +46,7 @@ class AddPersonDialog : DialogFragment() {
             val add = findViewById<Button>(R.id.Add)
             add.setOnClickListener({
                 if(text.text.toString() != ""){
-                    personListener.onAccept(text.text.toString())
+                    personListener.onAccept(text.text.toString(),personLayout)
                     dismiss()
                 }else{
                     text.setHintTextColor(Color.RED)
@@ -54,17 +55,8 @@ class AddPersonDialog : DialogFragment() {
         }
 
         return AlertDialog.Builder(aux).run {
-            setTitle("Add person")
+            setTitle(title)
             setView(view)
-            /*setPositiveButton("OK") { dialog, which ->
-                if(text.text.toString() != ""){
-                    personListener.onAccept(text.text.toString())
-                    dialog.dismiss()
-                }else{
-                    text.setHintTextColor(Color.RED)
-                }
-            }
-            setNegativeButton("CANCEL") { dialog, which -> dialog.cancel() }*/
 
             create()
         }

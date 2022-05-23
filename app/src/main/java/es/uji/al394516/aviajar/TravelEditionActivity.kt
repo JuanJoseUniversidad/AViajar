@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.view.iterator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,7 +65,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         //eventos
         anadirPersona.setOnClickListener {
-            createAddPersonDialog()
+            createAddPersonDialog("Añadir persona")
         }
 
         //presenter
@@ -113,9 +114,32 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
-    override fun createAddPersonDialog() {
-        val apDialog: AddPersonDialog = AddPersonDialog()
+    override fun createAddPersonDialog(title:String, personLayout:View?) {
+        val apDialog: AddPersonDialog = AddPersonDialog(title, personLayout)
         apDialog.show(supportFragmentManager,"addperson")
+    }
+
+    override fun createAlertDialog(title: String, text: String) {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle(title)
+        dialog.setMessage(text)
+        dialog.setPositiveButton("OK") { dialog, which ->dialog.dismiss()}
+        dialog.show()
+    }
+
+    override fun <T> createConfirmationDialog(title: String, text: String, parameter: T?,function: ((personLayout: T?) -> Unit)?) {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle(title)
+        dialog.setMessage(text)
+        dialog.setPositiveButton("OK") { dialog, which ->
+            if(function != null && parameter != null){
+                function(parameter)
+            }
+            dialog.dismiss()
+        }
+
+        dialog.setNegativeButton("Cancel") { dialog, which ->dialog.dismiss()}
+        dialog.show()
     }
     //endregion
 
@@ -141,12 +165,38 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
-    override fun onAccept(text: String) {
+    override fun onAccept(text: String, personLayout:View?) {
+        //Insert a new person on the scroll view
         val inflater = LayoutInflater.from(this)
 
         val linearLayout = personasScroll.findViewById<LinearLayout>(R.id.linearLayPersona)
-        val customLayout: View = inflater.inflate(R.layout.person_scrollview_layout, linearLayout, false)
-        customLayout.findViewById<TextView>(R.id.personName).text=text
-        linearLayout.addView(customLayout)
+        if(personLayout == null) {
+            val customLayout: View = inflater.inflate(R.layout.person_scrollview_layout, linearLayout, false)
+            customLayout.findViewById<TextView>(R.id.personName).text = text
+
+            //Edit person
+            customLayout.findViewById<FloatingActionButton>(R.id.editPerson).setOnClickListener({
+                createAddPersonDialog("Editar persona",customLayout)
+            })
+
+            //Delete person
+            customLayout.findViewById<FloatingActionButton>(R.id.deletePerson).setOnClickListener({
+                createConfirmationDialog("Borrar persona", "¿Estas seguro de borrar a esta persona?",customLayout,linearLayout::removeView)
+            })
+
+            linearLayout.addView(customLayout)
+
+            //Shows dialog to warn the user that a new person its added
+            createAlertDialog("Persona añadida","Persona añadida y gastos reiniciados")
+        }else{
+            personLayout.findViewById<TextView>(R.id.personName).text = text
+            //Shows dialog to warn the user that a person its edited
+            createAlertDialog("Persona editada","Persona editada con éxito")
+        }
+
+
+
+        //todo HAcer que inserte la persona en una lista para el model
+        //todo hacer que edite la persona en la lista
     }
 }

@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:ems="10"
-                android:hint="Name"
+                android:hint="Nombre"
                 android:inputType="textPersonName" />
 
             <Space
