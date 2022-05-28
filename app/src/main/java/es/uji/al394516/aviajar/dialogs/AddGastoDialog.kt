@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.uji.al394516.aviajar.Model
 import es.uji.al394516.aviajar.R
-import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.recycler.GastoDialogAdapter
 import java.lang.ClassCastException
