@@ -1,6 +1,7 @@
 package es.uji.al394516.aviajar
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import es.uji.al394516.aviajar.classes.Expense
@@ -98,5 +99,21 @@ class Model(context: Context) {
      */
     fun editPersonList(person:Person, index:Int){
         personList[index] = person
+    }
+
+    /**
+     * Prints person en logcat
+     */
+    fun debugPersons(){
+        for(p in personList) {
+            Log.d("personadebug", p.name)
+        }
+    }
+
+    /**
+     * Delete person from list
+     */
+    fun deletePerson(index: Int){
+        personList.removeAt(index)
     }
 }

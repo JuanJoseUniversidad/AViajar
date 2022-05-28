@@ -7,5 +7,5 @@ interface ITravelEdition {
     fun canUserModifyTravel(canEdit: Boolean)
     fun createAddPersonDialog(title:String, personLayout: View? = null)
     fun createAlertDialog(title:String, text:String)
-    fun <T>createConfirmationDialog(title: String, text: String, parameter: T? = null, function: ((personLayout:T?) -> Unit)? = null)
+    fun <T>createConfirmationDialog(title: String, text: String, parameter: List<T>? = listOf(), function: ((personLayout:List<T>?) -> Unit)? = null)
 }

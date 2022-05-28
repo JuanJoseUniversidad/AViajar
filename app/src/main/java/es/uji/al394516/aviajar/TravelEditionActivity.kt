@@ -137,7 +137,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         dialog.show()
     }
 
-    override fun <T> createConfirmationDialog(title: String, text: String, parameter: T?,function: ((personLayout: T?) -> Unit)?) {
+    override fun <T> createConfirmationDialog(title: String, text: String, parameter: List<T>?,function: ((personLayout: List<T>?) -> Unit)?) {
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle(title)
         dialog.setMessage(text)
@@ -200,13 +200,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             //Delete person
             customLayout.findViewById<FloatingActionButton>(R.id.deletePerson).setOnClickListener({
-                createConfirmationDialog("Borrar persona", "¿Estas seguro de borrar a esta persona?",customLayout,linearLayout::removeView)
+                createConfirmationDialog("Borrar persona", "¿Estas seguro de borrar a esta persona?", listOf(linearLayout,customLayout), ::removePerson)
             })
 
             linearLayout.addView(customLayout)
 
             //todo generar id de la persona y obtener id del viaje
-            presenter.addNewPerson(Person(0,text,0), personLayout.)
+            presenter.addNewPerson(Person(0,text,0))
+            presenter.debugPersonList()
 
             if (!internalUse){
                 //Shows dialog to warn the user that a new person its added
@@ -215,14 +216,20 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
             //todo generar id de la persona y obtener id del viaje
-            //presenter.editPerson(Person(0,text,0), personLayout.)
+            presenter.editPerson(Person(0,text,0), linearLayout.indexOfChild(personLayout))
+            presenter.debugPersonList()
             //Shows dialog to warn the user that a person its edited
             createAlertDialog("Persona editada","Persona editada con éxito")
         }
+    }
 
+    fun <T> removePerson(parameters: List<T>?){
+        val linearLayout:LinearLayout = parameters?.get(0) as LinearLayout
+        val personLayout: View = parameters?.get(1) as View
 
+        presenter.deletePerson(linearLayout.indexOfChild(personLayout))
+        presenter.debugPersonList()
 
-        //todo HAcer que inserte la persona en una lista para el model
-        //todo hacer que edite la persona en la lista
+        linearLayout.removeView(personLayout)
     }
 }

@@ -28,4 +28,12 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
     fun editPerson(person: Person, index:Int){
         model.editPersonList(person,index)
     }
+
+    fun debugPersonList(){
+        model.debugPersons()
+    }
+
+    fun deletePerson(index: Int){
+        model.deletePerson(index)
+    }
 }
