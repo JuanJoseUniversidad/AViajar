@@ -129,7 +129,7 @@ class Model(context: Context) {
     fun getPersonList(index: Int):Person{
         return personList[index]
     }
-     * Function that checks if [nombreGasto] exists in the [gastosList]
+    /** Function that checks if [nombreGasto] exists in the [gastosList]
      * @param nombreGasto
      */
     fun existeGastoInAuxList(nombreGasto: String): Boolean {
