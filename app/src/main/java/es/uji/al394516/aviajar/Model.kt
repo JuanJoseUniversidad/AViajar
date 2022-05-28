@@ -18,6 +18,8 @@ class Model(context: Context) {
     //Database
     private val database = TravelDatabase.getInstance(context)
 
+    private var personList:MutableList<Person> = mutableListOf()
+
     /**
      * Gets all the travels from the local database
      */
@@ -77,4 +79,24 @@ class Model(context: Context) {
         }
     }
 
+    /**
+     * Clear the list of persons
+     */
+    fun clearPersonList(){
+        personList.clear()
+    }
+
+    /**
+     * Add person to the list
+     */
+    fun addPersonList(person :Person){
+        personList.add(person)
+    }
+
+    /**
+     * Edit person
+     */
+    fun editPersonList(person:Person, index:Int){
+        personList[index] = person
+    }
 }

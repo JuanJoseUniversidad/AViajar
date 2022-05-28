@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.view.iterator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import es.uji.al394516.aviajar.classes.Person
 import es.uji.al394516.aviajar.classes.Travel
 import es.uji.al394516.aviajar.dialogs.AddPersonDialog
 import es.uji.al394516.aviajar.dialogs.IDialogsFunctions
@@ -204,12 +205,17 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             linearLayout.addView(customLayout)
 
+            //todo generar id de la persona y obtener id del viaje
+            presenter.addNewPerson(Person(0,text,0), personLayout.)
+
             if (!internalUse){
                 //Shows dialog to warn the user that a new person its added
                 createAlertDialog("Persona añadida","Persona añadida y gastos reiniciados")
             }
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
+            //todo generar id de la persona y obtener id del viaje
+            //presenter.editPerson(Person(0,text,0), personLayout.)
             //Shows dialog to warn the user that a person its edited
             createAlertDialog("Persona editada","Persona editada con éxito")
         }
