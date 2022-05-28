@@ -13,6 +13,7 @@ import es.uji.al394516.aviajar.classes.Person
 import es.uji.al394516.aviajar.classes.Travel
 import es.uji.al394516.aviajar.dialogs.AddPersonDialog
 import es.uji.al394516.aviajar.dialogs.IDialogsFunctions
+import java.util.*
 
 class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunctions {
 
@@ -206,7 +207,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             linearLayout.addView(customLayout)
 
             //todo generar id de la persona y obtener id del viaje
-            presenter.addNewPerson(Person(0,text,0))
+            //UUID.randomUUID().toString().hashCode(): generates and unique id of 128 and hash it to convert it to an int of 32bits
+            //this method avoids collisions.
+            //If use UUID.randomUUID().toInt() can produce collisions
+            presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,0))
             presenter.debugPersonList()
 
             if (!internalUse){
@@ -216,7 +220,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
             //todo generar id de la persona y obtener id del viaje
-            presenter.editPerson(Person(0,text,0), linearLayout.indexOfChild(personLayout))
+            val index = linearLayout.indexOfChild(personLayout)
+            presenter.editPerson(Person(presenter.getPerson(index).id,text,0), index)
             presenter.debugPersonList()
             //Shows dialog to warn the user that a person its edited
             createAlertDialog("Persona editada","Persona editada con éxito")

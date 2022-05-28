@@ -36,4 +36,8 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
     fun deletePerson(index: Int){
         model.deletePerson(index)
     }
+
+    fun getPerson(index:Int):Person{
+        return model.getPersonList(index)
+    }
 }

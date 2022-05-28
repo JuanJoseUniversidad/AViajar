@@ -6,6 +6,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Person
+import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.classes.Travel
 import es.uji.al394516.aviajar.database.TravelDatabase
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +51,7 @@ class Model(context: Context) {
                     }
                     var expenses: MutableList<Expense> = mutableListOf()
                     for(expense in expensesTravel){
-                        var expense_price_per_person: MutableMap<Int, Double> = mutableMapOf()
+                        var expense_price_per_person: MutableMap<Personid, Double> = mutableMapOf()
                         //Gets the corresponding part of the espense per person (MEJORAR ESTO POR FAVOR!!!!!!)
                         for(person in peopleTravel) {
                             val expense_person = withContext(Dispatchers.IO) {
@@ -106,7 +107,7 @@ class Model(context: Context) {
      */
     fun debugPersons(){
         for(p in personList) {
-            Log.d("personadebug", p.name)
+            Log.d("personadebug", p.id.toString() +", "+p.name)
         }
     }
 
@@ -115,5 +116,12 @@ class Model(context: Context) {
      */
     fun deletePerson(index: Int){
         personList.removeAt(index)
+    }
+
+    /**
+     * Get person from list
+     */
+    fun getPersonList(index: Int):Person{
+        return personList[index]
     }
 }
