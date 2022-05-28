@@ -46,7 +46,7 @@ class AddPersonDialog(val title:String, val personLayout:View? = null) : DialogF
             val add = findViewById<Button>(R.id.Add)
             add.setOnClickListener({
                 if(text.text.toString() != ""){
-                    personListener.onAccept(text.text.toString(),personLayout)
+                    personListener.onAccept(text.text.toString(),personLayout, false)
                     dismiss()
                 }else{
                     text.setHintTextColor(Color.RED)

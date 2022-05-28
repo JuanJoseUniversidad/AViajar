@@ -13,12 +13,16 @@ import es.uji.al394516.aviajar.classes.Person
 import es.uji.al394516.aviajar.classes.Travel
 import es.uji.al394516.aviajar.dialogs.AddPersonDialog
 import es.uji.al394516.aviajar.dialogs.IDialogsFunctions
+import java.util.*
 
 class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunctions {
 
     //variables a recibir de otras activities
     private var editMode : Boolean = false
     private var currentTravel: Travel? = null
+
+    //datos miembro local
+    private var travelId:Int = 0;
 
     //referencias del layout
     private lateinit var nameText: EditText
@@ -48,6 +52,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //obtener datos que nos pasan las activities
         editMode = intent.getBooleanExtra("EditMode", false)
         currentTravel = intent.extras!!.get("CurrentTravel") as Travel?
+
+        //
+        if(editMode == true && currentTravel == null){
+            //UUID.randomUUID().toString().hashCode(): generates and unique id of 128 and hash it to convert it to an int of 32bits
+            //this method avoids collisions.
+            //If use UUID.randomUUID().toInt() can produce collisions
+            travelId = UUID.randomUUID().toString().hashCode();
+        }
 
         //referenciar los objetos del layout
         nameText = findViewById(R.id.nameEditText)
@@ -137,7 +149,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         dialog.show()
     }
 
-    override fun <T> createConfirmationDialog(title: String, text: String, parameter: T?,function: ((personLayout: T?) -> Unit)?) {
+    override fun <T> createConfirmationDialog(title: String, text: String, parameter: List<T>?,function: ((personLayout: List<T>?) -> Unit)?) {
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle(title)
         dialog.setMessage(text)
@@ -200,13 +212,16 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             //Delete person
             customLayout.findViewById<FloatingActionButton>(R.id.deletePerson).setOnClickListener({
-                createConfirmationDialog("Borrar persona", "¿Estas seguro de borrar a esta persona?",customLayout,linearLayout::removeView)
+                createConfirmationDialog("Borrar persona", "¿Estas seguro de borrar a esta persona?", listOf(linearLayout,customLayout), ::removePerson)
             })
 
             linearLayout.addView(customLayout)
 
-            //todo generar id de la persona y obtener id del viaje
-            presenter.addNewPerson(Person(0,text,0), personLayout.)
+            //UUID.randomUUID().toString().hashCode(): generates and unique id of 128 and hash it to convert it to an int of 32bits
+            //this method avoids collisions.
+            //If use UUID.randomUUID().toInt() can produce collisions
+            presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,travelId))
+            presenter.debugPersonList()
 
             if (!internalUse){
                 //Shows dialog to warn the user that a new person its added
@@ -214,15 +229,23 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             }
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
-            //todo generar id de la persona y obtener id del viaje
-            //presenter.editPerson(Person(0,text,0), personLayout.)
+            val index = linearLayout.indexOfChild(personLayout)
+            presenter.editPerson(Person(presenter.getPerson(index).id,text,travelId), index)
+            presenter.debugPersonList()
             //Shows dialog to warn the user that a person its edited
             createAlertDialog("Persona editada","Persona editada con éxito")
         }
+    }
 
+    fun <T> removePerson(parameters: List<T>?){
+        val linearLayout:LinearLayout = parameters?.get(0) as LinearLayout
+        val personLayout: View = parameters?.get(1) as View
 
+        presenter.deletePerson(linearLayout.indexOfChild(personLayout))
+        presenter.debugPersonList()
 
-        //todo HAcer que inserte la persona en una lista para el model
-        //todo hacer que edite la persona en la lista
+        linearLayout.removeView(personLayout)
+
+        createAlertDialog("Persona borrada", "Persona borrada y gastos reiniciados");
     }
 }
