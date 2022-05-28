@@ -2,6 +2,8 @@ package es.uji.al394516.aviajar
 
 import android.content.Context
 import android.util.Log
+import androidx.core.view.children
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import es.uji.al394516.aviajar.classes.Expense
@@ -21,6 +23,9 @@ class Model(context: Context) {
     private val database = TravelDatabase.getInstance(context)
 
     private var personList:MutableList<Person> = mutableListOf()
+
+    //lista aux gastos
+    private var gastosList: MutableList<Expense> = mutableListOf()
 
     /**
      * Gets all the travels from the local database
@@ -124,4 +129,34 @@ class Model(context: Context) {
     fun getPersonList(index: Int):Person{
         return personList[index]
     }
+     * Function that checks if [nombreGasto] exists in the [gastosList]
+     * @param nombreGasto
+     */
+    fun existeGastoInAuxList(nombreGasto: String): Boolean {
+        for (gasto in gastosList){
+            if (gasto.name == nombreGasto)
+                return true
+        }
+        return false
+    }
+
+    /**
+     * Function that checks if the sum of the prices of [personaGastoRelation] are [precioTotal]
+     * @param precioTotal
+     * @param personaGastoRelation
+     * @return The difference between [precioTotal] and [personaGastoRelation]
+     */
+    fun checkGastosDialogSum(precioTotal: Double, personaGastoRelation: MutableMap<Personid,Double>): Double {
+        val totalSum = personaGastoRelation.entries.sumOf { it.value }
+
+        return precioTotal - totalSum
+    }
+
+    /**
+     * Function that returns a copy of [personList]
+     */
+    fun getAuxPeople(): List<Person>{
+        return personList
+    }
+
 }

@@ -18,19 +18,19 @@ import androidx.room.PrimaryKey
 data class ExpenseEntity(
     @PrimaryKey val name:String,
     val tavelID:Int,
-    val price:Float
+    val price:Double
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readFloat()
+        parcel.readDouble()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeInt(tavelID)
-        parcel.writeFloat(price)
+        parcel.writeDouble(price)
     }
 
     override fun describeContents(): Int {
