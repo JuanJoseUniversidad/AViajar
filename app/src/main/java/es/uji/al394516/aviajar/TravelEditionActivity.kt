@@ -21,6 +21,9 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     private var editMode : Boolean = false
     private var currentTravel: Travel? = null
 
+    //datos miembro local
+    private var travelId:Int = 0;
+
     //referencias del layout
     private lateinit var nameText: EditText
     private lateinit var placeText: EditText
@@ -49,6 +52,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //obtener datos que nos pasan las activities
         editMode = intent.getBooleanExtra("EditMode", false)
         currentTravel = intent.extras!!.get("CurrentTravel") as Travel?
+
+        //
+        if(editMode == true && currentTravel == null){
+            //UUID.randomUUID().toString().hashCode(): generates and unique id of 128 and hash it to convert it to an int of 32bits
+            //this method avoids collisions.
+            //If use UUID.randomUUID().toInt() can produce collisions
+            travelId = UUID.randomUUID().toString().hashCode();
+        }
 
         //referenciar los objetos del layout
         nameText = findViewById(R.id.nameEditText)
@@ -206,11 +217,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             linearLayout.addView(customLayout)
 
-            //todo generar id de la persona y obtener id del viaje
             //UUID.randomUUID().toString().hashCode(): generates and unique id of 128 and hash it to convert it to an int of 32bits
             //this method avoids collisions.
             //If use UUID.randomUUID().toInt() can produce collisions
-            presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,0))
+            presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,travelId))
             presenter.debugPersonList()
 
             if (!internalUse){
@@ -219,9 +229,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             }
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
-            //todo generar id de la persona y obtener id del viaje
             val index = linearLayout.indexOfChild(personLayout)
-            presenter.editPerson(Person(presenter.getPerson(index).id,text,0), index)
+            presenter.editPerson(Person(presenter.getPerson(index).id,text,travelId), index)
             presenter.debugPersonList()
             //Shows dialog to warn the user that a person its edited
             createAlertDialog("Persona editada","Persona editada con éxito")
@@ -236,5 +245,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         presenter.debugPersonList()
 
         linearLayout.removeView(personLayout)
+
+        createAlertDialog("Persona borrada", "Persona borrada y gastos reiniciados");
     }
 }
