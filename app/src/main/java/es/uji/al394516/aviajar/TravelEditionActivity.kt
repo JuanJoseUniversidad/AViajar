@@ -80,6 +80,15 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
      * This function fills all the parameters with the currentTravel data
      */
     override fun fillLayout(){
+        nameText.setText(currentTravel!!.name)
+        placeText.setText(currentTravel!!.place)
+
+        fillPersonasScroll()
+        
+        //TODO("Lo que pone debajo")
+        //fillGastosScroll()
+
+        //set precioTotalText
 
     }
 
@@ -165,7 +174,16 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
-    override fun onAccept(text: String, personLayout:View?) {
+    /**
+     * Function that fill the personasScroll with the "Personas" that go to the travel
+     */
+    private fun fillPersonasScroll(){
+        for (person in currentTravel!!.people){
+            onAccept(person.name, null, true)
+        }
+    }
+
+    override fun onAccept(text: String, personLayout:View?, internalUse: Boolean) {
         //Insert a new person on the scroll view
         val inflater = LayoutInflater.from(this)
 
@@ -186,8 +204,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             linearLayout.addView(customLayout)
 
-            //Shows dialog to warn the user that a new person its added
-            createAlertDialog("Persona añadida","Persona añadida y gastos reiniciados")
+            if (!internalUse){
+                //Shows dialog to warn the user that a new person its added
+                createAlertDialog("Persona añadida","Persona añadida y gastos reiniciados")
+            }
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
             //Shows dialog to warn the user that a person its edited

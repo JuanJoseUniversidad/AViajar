@@ -5,5 +5,5 @@ import android.widget.Button
 import android.widget.TextView
 
 interface IDialogsFunctions {
-    fun onAccept(text:String, personLayout: View? = null)
+    fun onAccept(text:String, personLayout: View? = null, internalUse: Boolean)
 }
