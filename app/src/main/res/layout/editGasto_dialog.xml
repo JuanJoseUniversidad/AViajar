@@ -29,6 +29,19 @@
                 android:hint="Nombre"
                 android:inputType="textPersonName" />
 
+            <EditText
+                android:id="@+id/editTextPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:ems="10"
+                android:hint="Precio"
+                android:inputType="number" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gastosRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />

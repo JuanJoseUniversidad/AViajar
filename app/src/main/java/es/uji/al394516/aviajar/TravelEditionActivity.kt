@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.view.iterator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import es.uji.al394516.aviajar.classes.Expense
+import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.classes.Travel
 import es.uji.al394516.aviajar.dialogs.AddPersonDialog
 import es.uji.al394516.aviajar.dialogs.IDialogsFunctions
@@ -183,6 +185,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
+    //region IDialogsFunctions
     override fun onAccept(text: String, personLayout:View?, internalUse: Boolean) {
         //Insert a new person on the scroll view
         val inflater = LayoutInflater.from(this)
@@ -219,4 +222,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //todo HAcer que inserte la persona en una lista para el model
         //todo hacer que edite la persona en la lista
     }
+
+    override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>) {
+        TODO("Crear el gasto y añadirlo a la lista auxiliar de gastos" +
+                "actualizar scroll de gastos" +
+                "actualizar PrecioTotal")
+    }
+    //endregion
 }

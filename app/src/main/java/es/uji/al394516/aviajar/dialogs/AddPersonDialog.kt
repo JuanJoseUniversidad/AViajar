@@ -2,16 +2,13 @@ package es.uji.al394516.aviajar.dialogs
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RatingBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import es.uji.al394516.aviajar.R
 import java.lang.ClassCastException
 
@@ -36,17 +33,17 @@ class AddPersonDialog(val title:String, val personLayout:View? = null) : DialogF
         var text: EditText
         val view = aux.layoutInflater.inflate(R.layout.edittext_dialog, null)
         with(view){
-            text = findViewById(R.id.editTextPersonName)
+            text = findViewById(R.id.editTextName)
 
-            val cancel = findViewById<Button>(R.id.Cancel)
+            val cancel = findViewById<Button>(R.id.cancelButton)
             cancel.setOnClickListener({
                 dismiss()
             })
 
-            val add = findViewById<Button>(R.id.Add)
+            val add = findViewById<Button>(R.id.addButton)
             add.setOnClickListener({
                 if(text.text.toString() != ""){
-                    personListener.onAccept(text.text.toString(),personLayout)
+                    personListener.onAccept(text.text.toString(),personLayout, false)
                     dismiss()
                 }else{
                     text.setHintTextColor(Color.RED)

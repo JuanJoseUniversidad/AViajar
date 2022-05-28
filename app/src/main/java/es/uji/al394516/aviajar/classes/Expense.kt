@@ -5,13 +5,13 @@ import android.os.Parcelable
 import es.uji.al394516.aviajar.database.ExpenseEntity
 import es.uji.al394516.aviajar.database.PersonEntity
 
-class Expense(val name:String, val tavelID:Int, val price:Float, val person_money: MutableMap<Personid,Double>) :
+class Expense(val name:String, val tavelID:Int, val price:Double, val person_money: MutableMap<Personid,Double>) :
     Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readFloat(),
+        parcel.readDouble(),
         parcel.readParcelable(MutableMap::class.java.classLoader)!!
     ) {
     }
@@ -22,7 +22,7 @@ class Expense(val name:String, val tavelID:Int, val price:Float, val person_mone
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeInt(tavelID)
-        parcel.writeFloat(price)
+        parcel.writeDouble(price)
         parcel.writeMap(person_money)
 
     }
