@@ -28,6 +28,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     //datos miembro local
     private var travelId:Int = 0;
 
+    private var placeName:String = ""
+
     //referencias del layout
     private lateinit var nameText: EditText
     private lateinit var placeText: AutoCompleteTextView
@@ -99,7 +101,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
                 listplaces.binarySearch { it.compareTo(place) }.let {
                     if (it >= 0)
                         //añadir a una var aux el nombre del lugar elegido
-                            TODO("Agregar var aux el nombre elegido para construir mas tarde el objeto travel")
+                        placeName = listplaces[it]
                         //presenter.setChosenIngredient(listplaces[it])
                 }
             }
