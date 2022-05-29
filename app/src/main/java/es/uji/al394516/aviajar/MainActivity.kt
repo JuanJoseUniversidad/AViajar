@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
 import es.uji.al394516.aviajar.classes.Travel
 
 class MainActivity : AppCompatActivity(), IMainView {
 
     private lateinit var mirarViajesButton: Button
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var presenter: PresenterMainView
 
@@ -18,10 +21,9 @@ class MainActivity : AppCompatActivity(), IMainView {
         setContentView(R.layout.activity_main)
 
         mirarViajesButton = findViewById(R.id.mirarViajesButton)
+        progressBar= findViewById(R.id.progressBarMain)
 
         presenter = PresenterMainView(this, Model(applicationContext))
-
-        //TODO("Mirar si la bdd está vacía -> bloquear botón mirarViajes")
 
     }
 
@@ -34,6 +36,21 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     //region IMainView functions
+
+    override fun enableButton(enable:Boolean){
+        mirarViajesButton.setEnabled(enable)
+        progressBar.visibility = View.INVISIBLE
+    }
+
+    /**
+     * Shows an message via Toast
+     * @param message An String of the message
+     */
+    override fun showMessage(message: String){
+        val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
+        toast.show()
+    }
+
     override fun toNextActivity() {
         val intent = Intent(this@MainActivity, TravelEditionActivity::class.java)
         intent.putExtra("EditMode", true)

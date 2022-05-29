@@ -2,6 +2,8 @@ package es.uji.al394516.aviajar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -26,9 +28,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     //datos miembro local
     private var travelId:Int = 0;
 
+    private var placeName:String = ""
+
     //referencias del layout
     private lateinit var nameText: EditText
-    private lateinit var placeText: EditText
+    private lateinit var placeText: AutoCompleteTextView
 
     private lateinit var anadirPersona: Button
     private lateinit var personasScroll: ScrollView
@@ -40,6 +44,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     private lateinit var anadirViaje: FloatingActionButton
     private lateinit var editViaje: FloatingActionButton
     private lateinit var deleteViaje: FloatingActionButton
+
+    private lateinit var progressBarNetwork:ProgressBar
 
     //presenter
     private lateinit var presenter: PresenterTE
@@ -65,7 +71,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         //referenciar los objetos del layout
         nameText = findViewById(R.id.nameEditText)
-        placeText = findViewById(R.id.placeEditText)
+        placeText = findViewById(R.id.placeAutoText)
 
         anadirPersona = findViewById(R.id.anadirPersonaButton)
         personasScroll = findViewById(R.id.personasScrollView)
@@ -78,10 +84,28 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         editViaje = findViewById(R.id.editTravelActionButton)
         deleteViaje = findViewById(R.id.deleteTravelActionButton)
 
+        progressBarNetwork = findViewById(R.id.progressBarNetwork)
+
         //eventos
         anadirPersona.setOnClickListener {
             createAddPersonDialog("Añadir persona")
         }
+
+        //Set autocompleter event
+        placeText.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                val place = p0.toString()
+                var listplaces:List<String> = presenter.places
+                listplaces.binarySearch { it.compareTo(place) }.let {
+                    if (it >= 0)
+                        //añadir a una var aux el nombre del lugar elegido
+                        placeName = listplaces[it]
+                        //presenter.setChosenIngredient(listplaces[it])
+                }
+            }
+        })
 
         //presenter
         presenter = PresenterTE(this, Model(applicationContext))
@@ -91,6 +115,32 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     }
 
     //region ITravelEdition
+    /**
+     * Enables and disables the ProgressBar
+     * @param enable Int for enable and disable the ProgressBar
+     */
+    override fun enableProgressBar(enable: Int) {
+        progressBarNetwork.visibility = enable;
+    }
+
+    /**
+     * Shows an message via Toast
+     * @param message An String of the message
+     */
+    override fun showMessage(message: String){
+        val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
+        toast.show()
+    }
+
+    /**
+     * Shows the ingredients on the autocompleter
+     * @param ingredients An array of objects Ingredients
+     */
+    override fun showPlaces(ingredients: List<String>){
+        val localAdapter = ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, ingredients.toTypedArray())
+        placeText.setAdapter(localAdapter)
+    }
+
     /**
      * This function fills all the parameters with the currentTravel data
      */

@@ -21,6 +21,8 @@ import kotlin.math.exp
 class Model(context: Context) {
     //Database
     private val database = TravelDatabase.getInstance(context)
+    //Network
+    private val network = Network.getInstance(context)
 
     private var personList:MutableList<Person> = mutableListOf()
 
@@ -157,6 +159,21 @@ class Model(context: Context) {
      */
     fun getAuxPeople(): List<Person>{
         return personList
+    }
+
+    /**
+     * Gets places from API if there is an error return an a list with one item "Undefined"*/
+    fun getPlaces(listener: Response.Listener<List<String>>, errorListener: Response.ErrorListener) /*: Array<Ingredients>*/{
+        // Launch a coroutine
+        GlobalScope.launch(Dispatchers.Main) {
+                // Recover categories from the net
+            network.getPlaces(Response.Listener {
+                // Pass the categories to the listener
+                listener.onResponse(it)
+            }, Response.ErrorListener {
+                errorListener.onErrorResponse(it)
+            })
+        }
     }
 
 }

@@ -1,12 +1,29 @@
 package es.uji.al394516.aviajar
 
+import android.view.View
 import es.uji.al394516.aviajar.classes.Person
 import es.uji.al394516.aviajar.classes.Travel
 
 class PresenterTE(val view: ITravelEdition, val model: Model) {
 
+    var places:List<String> = listOf("Undefined")
+
     init{
         model.clearPersonList()//To rebuild the list from sratch and avoid future problems
+        getPlacesNetwork()
+    }
+
+    fun getPlacesNetwork(){
+        model.getPlaces({
+            view.showPlaces(it)
+            places = it
+            view.enableProgressBar(View.INVISIBLE);
+            //view.activateActivity();
+        },{
+            view.showPlaces(places)
+            view.showMessage("Could not connect to the database")
+            view.enableProgressBar(View.INVISIBLE);
+        })
     }
 
     fun travelExists(currentTravel: Travel?) {
