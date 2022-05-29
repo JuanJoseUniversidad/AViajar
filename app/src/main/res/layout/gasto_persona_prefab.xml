@@ -38,8 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/app_name"
-                android:inputType="number"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
                 android:minHeight="48dp" />
 
         </LinearLayout>
