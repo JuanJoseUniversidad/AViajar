@@ -10,4 +10,5 @@ interface ITravelEdition {
     fun <T>createConfirmationDialog(title: String, text: String, parameter: List<T>? = listOf(), function: ((personLayout:List<T>?) -> Unit)? = null)
     fun showPlaces(ingredients: List<String>)
     fun showMessage(message: String)
+    fun enableProgressBar(enable: Int)
 }

@@ -43,6 +43,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     private lateinit var editViaje: FloatingActionButton
     private lateinit var deleteViaje: FloatingActionButton
 
+    private lateinit var progressBarNetwork:ProgressBar
+
     //presenter
     private lateinit var presenter: PresenterTE
 
@@ -80,6 +82,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         editViaje = findViewById(R.id.editTravelActionButton)
         deleteViaje = findViewById(R.id.deleteTravelActionButton)
 
+        progressBarNetwork = findViewById(R.id.progressBarNetwork)
+
         //eventos
         anadirPersona.setOnClickListener {
             createAddPersonDialog("Añadir persona")
@@ -108,9 +112,15 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         presenter.travelExists(currentTravel)
     }
 
-
-
     //region ITravelEdition
+    /**
+     * Enables and disables the ProgressBar
+     * @param enable Int for enable and disable the ProgressBar
+     */
+    override fun enableProgressBar(enable: Int) {
+        progressBarNetwork.visibility = enable;
+    }
+
     /**
      * Shows an message via Toast
      * @param message An String of the message
