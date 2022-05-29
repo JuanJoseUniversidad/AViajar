@@ -8,4 +8,6 @@ interface ITravelEdition {
     fun createAddPersonDialog(title:String, personLayout: View? = null)
     fun createAlertDialog(title:String, text:String)
     fun <T>createConfirmationDialog(title: String, text: String, parameter: List<T>? = listOf(), function: ((personLayout:List<T>?) -> Unit)? = null)
+    fun showPlaces(ingredients: List<String>)
+    fun showMessage(message: String)
 }
