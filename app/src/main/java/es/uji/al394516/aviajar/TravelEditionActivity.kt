@@ -156,6 +156,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     }
 
     override fun createAddGastoDialog(title: String, gastoLayout: View?, gasto: Expense?) {
+        if (presenter.model.getAuxPeople().size < 1){
+            createAlertDialog("FALTA GENTE", "No puedes tener un gasto sin nadie que lo pague")
+            return
+        }
         val agDialog: AddGastoDialog = AddGastoDialog(title, gastoLayout, presenter.model, gasto)
         agDialog.show(supportFragmentManager, "addgasto")
     }
