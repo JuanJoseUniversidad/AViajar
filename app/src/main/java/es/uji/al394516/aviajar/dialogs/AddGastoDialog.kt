@@ -17,6 +17,7 @@ import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.recycler.GastoDialogAdapter
 import java.lang.ClassCastException
+import kotlin.math.absoluteValue
 
 class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model: Model, val gasto: Expense?) : DialogFragment() {
     private lateinit var gastoListener: IDialogsFunctions
@@ -44,7 +45,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
 
         val aux = requireActivity()     //como no es null la activity pues esto tiene valor seguro
 
-        val view = aux.layoutInflater.inflate(R.layout.gasto_persona_prefab, null)
+        val view = aux.layoutInflater.inflate(R.layout.editgasto_dialog, null)
         var personaGastoRelationAux: MutableMap<Personid, Double> = mutableMapOf()
         val personListAux = model.getAuxPeople()
 
@@ -61,9 +62,9 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
         }
 
         with(view){
-            val gastoName: EditText = findViewById(R.id.editTextName)
-            val gastoPrecio: EditText = findViewById(R.id.editTextPrecio)
-            val gastoPersonaRecyclerView: RecyclerView = findViewById(R.id.gastosRecycler)
+            val gastoName: EditText = findViewById(R.id.nombreGasto)
+            val gastoPrecio: EditText = findViewById(R.id.precioGasto)
+            val gastoPersonaRecyclerView: RecyclerView = findViewById(R.id.recyclerGasto)
 
             //mirar si estamos editando uno -> rellenar los datos
             if (gasto != null){
@@ -87,8 +88,8 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
             addButton.setOnClickListener{
                 if (gastoName.text.toString() != ""){
                     if (!model.existeGastoInAuxList(gastoName.text.toString())){
-                        if (gastoPrecio.toString() != ""){
-                            val difference: Double = model.checkGastosDialogSum(gastoPrecio.toString().toDouble(), personaGastoRelationAux)
+                        if (gastoPrecio.text.toString() != ""){
+                            var difference: Double = model.checkGastosDialogSum(gastoPrecio.text.toString().toDouble(), personaGastoRelationAux)
                             if (difference == 0.0){
                                 gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux, gastoLayout)
                                 dismiss()
@@ -98,6 +99,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
                                     createAlertDialog("FALTA DINERO", "Te faltan $difference€ por asignar")
                                 }
                                 else{
+                                    difference = difference.absoluteValue
                                     createAlertDialog("SOBRA DINERO", "Te sobran $difference€ al asignar")
                                 }
                             }

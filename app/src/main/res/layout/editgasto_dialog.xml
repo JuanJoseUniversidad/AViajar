@@ -22,25 +22,27 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editTextName"
+                android:id="@+id/nombreGasto"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Nombre"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
             <EditText
-                android:id="@+id/editTextPrecio"
+                android:id="@+id/precioGasto"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Precio"
-                android:inputType="number" />
+                android:inputType="numberDecimal"
+                android:minHeight="48dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/gastosRecycler"
+                android:id="@+id/recyclerGasto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="145dp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -48,7 +50,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button

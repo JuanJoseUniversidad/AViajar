@@ -22,7 +22,7 @@ class GastoDialogAdapter(val personaGastoMap: MutableMap<Personid, Double>, val 
         lateinit var valores: MutableList<Double>
 
         init {
-            personName = itemView.findViewById(R.id.personName)
+            personName = itemView.findViewById(R.id.personNamePrecio)
             personGasto = itemView.findViewById(R.id.editTextPrecioPersona)
 
             llaves = ArrayList<Personid>(personaGastoMap.keys)
@@ -32,7 +32,10 @@ class GastoDialogAdapter(val personaGastoMap: MutableMap<Personid, Double>, val 
             personGasto.addTextChangedListener(object: TextWatcher{
                 override fun afterTextChanged(p0: Editable?) {
                     val actualKey = llaves[layoutPosition]
-                    personaGastoMap[actualKey] = personGasto.text.toString().toDouble()
+                    if (personGasto.text.toString() == "")
+                        personaGastoMap[actualKey] = 0.0
+                    else
+                        personaGastoMap[actualKey] = personGasto.text.toString().toDouble()
                 }
 
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -70,7 +73,7 @@ class GastoDialogAdapter(val personaGastoMap: MutableMap<Personid, Double>, val 
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.travel_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.gasto_persona_prefab, parent, false)
         return ViewHolder(v);
     }
 

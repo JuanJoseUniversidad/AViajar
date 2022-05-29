@@ -269,7 +269,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //actualizar scroll
         val inflater = LayoutInflater.from(this)
 
-        val linearLayout = personasScroll.findViewById<LinearLayout>(R.id.linearLayGasto)
+        val linearLayout = gastosScroll.findViewById<LinearLayout>(R.id.linearLayGasto)
         if(gastoLayout == null) {
             val customLayout: View = inflater.inflate(R.layout.person_scrollview_layout, linearLayout, false)
             customLayout.findViewById<TextView>(R.id.personName).text = name

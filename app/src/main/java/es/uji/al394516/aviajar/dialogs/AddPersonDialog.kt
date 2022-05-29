@@ -33,7 +33,7 @@ class AddPersonDialog(val title:String, val personLayout:View? = null) : DialogF
         var text: EditText
         val view = aux.layoutInflater.inflate(R.layout.edittext_dialog, null)
         with(view){
-            text = findViewById(R.id.editTextName)
+            text = findViewById(R.id.nombreGasto)
 
             val cancel = findViewById<Button>(R.id.cancelButton)
             cancel.setOnClickListener({
