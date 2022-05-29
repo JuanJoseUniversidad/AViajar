@@ -13,6 +13,7 @@
         android:theme="@style/Theme.AViajar">
         <activity
             android:name=".TravelEditionActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".TravelResultsActivity"

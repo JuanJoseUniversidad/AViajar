@@ -103,10 +103,24 @@ class Model(context: Context) {
     }
 
     /**
+     * Add [newExpense] to the auxiliary list
+     */
+    fun addExpenseList(newExpense: Expense) {
+        gastosList.add(newExpense)
+    }
+
+    /**
      * Edit person
      */
     fun editPersonList(person:Person, index:Int){
         personList[index] = person
+    }
+
+    /**
+     * Edit [newExpense] in the auxiliary list
+     */
+    fun editGastoList(newExpense: Expense, index: Int) {
+        gastosList[index] = newExpense
     }
 
     /**
@@ -123,6 +137,13 @@ class Model(context: Context) {
      */
     fun deletePerson(index: Int){
         personList.removeAt(index)
+    }
+
+    /**
+     * Delete gasto from list
+     */
+    fun deleteGasto(index: Int) {
+        gastosList.removeAt(index)
     }
 
     /**
@@ -176,4 +197,14 @@ class Model(context: Context) {
         }
     }
 
+     * @return The sum of the prices of [gastosList]
+     */
+    fun precioTotal(): Double {
+        var precio = 0.0
+
+        for (gasto in gastosList){
+            precio += gasto.price
+        }
+        return precio
+    }
 }
