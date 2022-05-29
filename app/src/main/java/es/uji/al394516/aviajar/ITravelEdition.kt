@@ -1,11 +1,16 @@
 package es.uji.al394516.aviajar
 
 import android.view.View
+import android.widget.TextView
+import es.uji.al394516.aviajar.classes.Expense
 
 interface ITravelEdition {
+    var precioTotal: String
+
     fun fillLayout()
     fun canUserModifyTravel(canEdit: Boolean)
     fun createAddPersonDialog(title:String, personLayout: View? = null)
+    fun createAddGastoDialog(title: String, gastoLayout: View? = null, gasto: Expense?)
     fun createAlertDialog(title:String, text:String)
     fun <T>createConfirmationDialog(title: String, text: String, parameter: List<T>? = listOf(), function: ((personLayout:List<T>?) -> Unit)? = null)
 }

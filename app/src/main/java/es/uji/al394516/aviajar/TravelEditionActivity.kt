@@ -13,6 +13,7 @@ import es.uji.al394516.aviajar.classes.Person
 import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.classes.Travel
+import es.uji.al394516.aviajar.dialogs.AddGastoDialog
 import es.uji.al394516.aviajar.dialogs.AddPersonDialog
 import es.uji.al394516.aviajar.dialogs.IDialogsFunctions
 import java.util.*
@@ -24,6 +25,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     private var currentTravel: Travel? = null
 
     //datos miembro local
+    //TODO("modificar si currentTravel existe")
     private var travelId:Int = 0;
 
     //referencias del layout
@@ -83,6 +85,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             createAddPersonDialog("Añadir persona")
         }
 
+        anadirGasto.setOnClickListener{
+            createAddGastoDialog("Añadir gasto", null, null)
+        }
+
         //presenter
         presenter = PresenterTE(this, Model(applicationContext))
 
@@ -91,6 +97,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     }
 
     //region ITravelEdition
+    override var precioTotal: String
+        get() = precioTotalText.text.toString()
+        set(value) {
+            precioTotalText.text = value
+        }
+
     /**
      * This function fills all the parameters with the currentTravel data
      */
@@ -141,6 +153,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     override fun createAddPersonDialog(title:String, personLayout:View?) {
         val apDialog: AddPersonDialog = AddPersonDialog(title, personLayout)
         apDialog.show(supportFragmentManager,"addperson")
+    }
+
+    override fun createAddGastoDialog(title: String, gastoLayout: View?, gasto: Expense?) {
+        val agDialog: AddGastoDialog = AddGastoDialog(title, gastoLayout, presenter.model, gasto)
+        agDialog.show(supportFragmentManager, "addgasto")
     }
 
     override fun createAlertDialog(title: String, text: String) {
@@ -240,7 +257,54 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
-    fun <T> removePerson(parameters: List<T>?){
+    override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?) {
+        //crear gasto y añadir a la lista de gastos
+        val newExpense = Expense(name, travelId, totalPrice, person_expense)
+        presenter.addNewExpense(newExpense)
+
+        //actualizar scroll
+        val inflater = LayoutInflater.from(this)
+
+        val linearLayout = personasScroll.findViewById<LinearLayout>(R.id.linearLayGasto)
+        if(gastoLayout == null) {
+            val customLayout: View = inflater.inflate(R.layout.person_scrollview_layout, linearLayout, false)
+            customLayout.findViewById<TextView>(R.id.personName).text = name
+
+            //Edit gasto
+            customLayout.findViewById<FloatingActionButton>(R.id.editPerson).setOnClickListener({
+                createAddGastoDialog("Editar gasto",customLayout, newExpense)
+            })
+
+            //Delete gasto
+            customLayout.findViewById<FloatingActionButton>(R.id.deletePerson).setOnClickListener({
+                createConfirmationDialog("Borrar gasto", "¿Estas seguro de borrar este gasto?", listOf(linearLayout, customLayout), ::removeGasto)
+            })
+
+            linearLayout.addView(customLayout)
+
+        }else{
+            gastoLayout.findViewById<TextView>(R.id.personName).text = name
+
+            val index = linearLayout.indexOfChild(gastoLayout)
+            presenter.editGasto(newExpense, index)
+        }
+
+        //actualizar precioTotal
+        presenter.setPrecioTotal()
+
+        //mostrar Toast
+        var message: String
+        if (gastoLayout == null){
+            message = "Gasto añadido"
+        }else{
+            message = "Gasto editado"
+        }
+        val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
+        toast.show()
+    }
+    //endregion
+
+    private fun <T> removePerson(parameters: List<T>?){
         val linearLayout:LinearLayout = parameters?.get(0) as LinearLayout
         val personLayout: View = parameters?.get(1) as View
 
@@ -249,13 +313,15 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         linearLayout.removeView(personLayout)
 
+        //TODO("reiniciar gastos")
         createAlertDialog("Persona borrada", "Persona borrada y gastos reiniciados");
     }
 
-    override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>) {
-        TODO("Crear el gasto y añadirlo a la lista auxiliar de gastos" +
-                "actualizar scroll de gastos" +
-                "actualizar PrecioTotal")
+    private fun <T> removeGasto(parameters: List<T>?){
+        val linearLayout: LinearLayout = parameters?.get(0) as LinearLayout
+        val gastoLayout: View = parameters?.get(1) as View
+
+        presenter.deleteGasto(gastoLayout, linearLayout)
+        presenter.setPrecioTotal()
     }
-    //endregion
 }

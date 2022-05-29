@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.uji.al394516.aviajar.Model
 import es.uji.al394516.aviajar.R
+import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.recycler.GastoDialogAdapter
 import java.lang.ClassCastException
 
-class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model: Model) : DialogFragment() {
+class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model: Model, val gasto: Expense?) : DialogFragment() {
     private lateinit var gastoListener: IDialogsFunctions
 
     private fun createAlertDialog(title: String, message: String){
@@ -44,18 +45,31 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
         val aux = requireActivity()     //como no es null la activity pues esto tiene valor seguro
 
         val view = aux.layoutInflater.inflate(R.layout.gasto_persona_prefab, null)
-        val personaGastoRelationAux: MutableMap<Personid, Double> = mutableMapOf()
-
-        //crear map con valores por default a 0.0
+        var personaGastoRelationAux: MutableMap<Personid, Double> = mutableMapOf()
         val personListAux = model.getAuxPeople()
-        for (person in personListAux){
-            personaGastoRelationAux.put(person.id, 0.0)
+
+        //si estamos editando uno
+        if (gasto != null){
+            personaGastoRelationAux = gasto.person_money
+        }
+        //si estamos creando uno
+        else{
+            //crear map con valores por default a 0.0
+            for (person in personListAux){
+                personaGastoRelationAux.put(person.id, 0.0)
+            }
         }
 
         with(view){
             val gastoName: EditText = findViewById(R.id.editTextName)
             val gastoPrecio: EditText = findViewById(R.id.editTextPrecio)
             val gastoPersonaRecyclerView: RecyclerView = findViewById(R.id.gastosRecycler)
+
+            //mirar si estamos editando uno -> rellenar los datos
+            if (gasto != null){
+                gastoName.setText(gasto.name)
+                gastoPrecio.setText(gasto.price.toString())
+            }
 
             //llenar recyclerView
             gastoPersonaRecyclerView.layoutManager = LinearLayoutManager(aux)
@@ -76,7 +90,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
                         if (gastoPrecio.toString() != ""){
                             val difference: Double = model.checkGastosDialogSum(gastoPrecio.toString().toDouble(), personaGastoRelationAux)
                             if (difference == 0.0){
-                                gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux)
+                                gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux, gastoLayout)
                                 dismiss()
                             }
                             else{
