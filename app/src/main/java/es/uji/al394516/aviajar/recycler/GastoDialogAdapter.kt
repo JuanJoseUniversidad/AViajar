@@ -34,8 +34,11 @@ class GastoDialogAdapter(val personaGastoMap: MutableMap<Personid, Double>, val 
                     val actualKey = llaves[layoutPosition]
                     if (personGasto.text.toString() == "")
                         personaGastoMap[actualKey] = 0.0
-                    else
-                        personaGastoMap[actualKey] = personGasto.text.toString().toDouble()
+                    else{
+                        val precioUnitario: Double = personGasto.text.toString().toDouble()
+                        personaGastoMap[actualKey] = precioUnitario
+                        valores[layoutPosition] = precioUnitario
+                    }
                 }
 
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
