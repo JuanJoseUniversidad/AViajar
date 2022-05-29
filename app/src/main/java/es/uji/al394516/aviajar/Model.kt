@@ -197,8 +197,9 @@ class Model(context: Context) {
         }
     }
 
-     * @return The sum of the prices of [gastosList]
-     */
+     /**
+      * @return The sum of the prices of [gastosList]
+      */
     fun precioTotal(): Double {
         var precio = 0.0
 
