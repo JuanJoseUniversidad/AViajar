@@ -91,6 +91,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         progressBarNetwork = findViewById(R.id.progressBarNetwork)
 
+        if(currentTravel != null){
+            travelId = currentTravel!!.id
+            travelName = currentTravel!!.name
+            placeName = currentTravel!!.place
+        }
+
         //eventos
         editViaje.setOnClickListener{
             toEditMode()
@@ -102,12 +108,6 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         anadirGasto.setOnClickListener{
             createAddGastoDialog("Añadir gasto", null, null)
-        }
-
-        if(currentTravel != null){
-            travelId = currentTravel!!.id
-            travelName = currentTravel!!.name
-            placeName = currentTravel!!.place
         }
 
         anadirViaje.setOnClickListener{

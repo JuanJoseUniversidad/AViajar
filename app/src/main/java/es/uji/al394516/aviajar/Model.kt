@@ -266,8 +266,9 @@ class Model(context: Context) {
      */
     fun resetMapAllExpense(){
         for (e in gastosList){
-            for(price in e.person_money){
-                e.person_money[price.key] = 0.0
+            e.person_money.clear()
+            for (person in personList){
+                e.person_money.put(person.id, 0.0)
             }
         }
     }
