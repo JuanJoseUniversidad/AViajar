@@ -87,30 +87,29 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
             val addButton = findViewById<Button>(R.id.addButton)
             addButton.setOnClickListener{
                 if (gastoName.text.toString() != ""){
-                    if (!model.existeGastoInAuxList(gastoName.text.toString())){
-                        if (gastoPrecio.text.toString() != ""){
-                            var difference: Double = model.checkGastosDialogSum(gastoPrecio.text.toString().toDouble(), personaGastoRelationAux)
-                            if (difference == 0.0){
-                                gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux, gastoLayout)
-                                dismiss()
-                            }
-                            else{
-                                if (difference > 0.0){
-                                    createAlertDialog("FALTA DINERO", "Te faltan $difference€ por asignar")
-                                }
-                                else{
-                                    difference = difference.absoluteValue
-                                    createAlertDialog("SOBRA DINERO", "Te sobran $difference€ al asignar")
-                                }
-                            }
+                    //estamos creando gasto -> comprobar nombre único
+                    if (gastoLayout == null){
+                        if (!model.existeGastoInAuxList(gastoName.text.toString())){
+                            ComprobacionFinal(gastoName, gastoPrecio, personaGastoRelationAux)
                         }
                         else{
-                            createAlertDialog("NO HAY PRECIO", "No has asignado precio a este gasto")
-                            gastoPrecio.setHintTextColor(Color.RED)
+                            createAlertDialog("NOMBRE REPETIDO", "Ya existe un gasto con este nombre, prueba otro distinto")
                         }
                     }
+                    //estamos editando gasto, da igual repetir nombre si es el de este viaje
                     else{
-                        createAlertDialog("NOMBRE REPETIDO", "Ya existe un gasto con este nombre, prueba otro distinto")
+                        //existe el nombre pero es el que estamos editando
+                        if (model.existeGastoInAuxList(gastoName.text.toString()) && gastoName.text.toString() == gasto!!.name){
+                            ComprobacionFinal(gastoName, gastoPrecio, personaGastoRelationAux)
+                        }
+                        //si existe en la bdd y no es el que estamos editando
+                        else if (model.existeGastoInAuxList(gastoName.text.toString())){
+                            createAlertDialog("NOMBRE REPETIDO", "Ya existe otro gasto con este nombre, prueba otro distinto")
+                        }
+                        //nombre nuevo -> machacar
+                        else{
+                            ComprobacionFinal(gastoName, gastoPrecio, personaGastoRelationAux)
+                        }
                     }
                 }
                 else{
@@ -125,6 +124,29 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
             setView(view)
 
             create()
+        }
+    }
+
+    private fun ComprobacionFinal(gastoName: EditText, gastoPrecio: EditText, personaGastoRelationAux: MutableMap<Personid, Double>) {
+        if (gastoPrecio.text.toString() != ""){
+            var difference: Double = model.checkGastosDialogSum(gastoPrecio.text.toString().toDouble(), personaGastoRelationAux)
+            if (difference == 0.0){
+                gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux, gastoLayout)
+                dismiss()
+            }
+            else{
+                if (difference > 0.0){
+                    createAlertDialog("FALTA DINERO", "Te faltan $difference€ por asignar")
+                }
+                else{
+                    difference = difference.absoluteValue
+                    createAlertDialog("SOBRA DINERO", "Te sobran $difference€ al asignar")
+                }
+            }
+        }
+        else{
+            createAlertDialog("NO HAY PRECIO", "No has asignado precio a este gasto")
+            gastoPrecio.setHintTextColor(Color.RED)
         }
     }
 }

@@ -165,8 +165,9 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //TODO("Lo que pone debajo")
         //fillGastosScroll()
 
-        //set precioTotalText
 
+        //set precioTotalText
+        presenter.setPrecioTotal()
     }
 
     /**
@@ -314,7 +315,6 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?) {
         //crear gasto y añadir a la lista de gastos
         val newExpense = Expense(name, travelId, totalPrice, person_expense)
-        presenter.addNewExpense(newExpense)
 
         //actualizar scroll
         val inflater = LayoutInflater.from(this)
@@ -334,6 +334,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
                 createConfirmationDialog("Borrar gasto", "¿Estas seguro de borrar este gasto?", listOf(linearLayout, customLayout), ::removeGasto)
             })
 
+            presenter.addNewExpense(newExpense)
             linearLayout.addView(customLayout)
 
         }else{
