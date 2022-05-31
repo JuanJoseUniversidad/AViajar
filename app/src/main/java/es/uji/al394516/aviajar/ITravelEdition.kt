@@ -19,4 +19,5 @@ interface ITravelEdition {
     fun enableProgressBar(enable: Int)
     fun setTravel(travel :Travel)
     fun getTravel(): Travel?
+    fun createAlertDialogNextActivity(title: String, text: String)
 }

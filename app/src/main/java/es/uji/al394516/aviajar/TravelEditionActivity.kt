@@ -1,5 +1,6 @@
 package es.uji.al394516.aviajar
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -243,6 +244,16 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         dialog.show()
     }
 
+    override fun createAlertDialogNextActivity(title: String, text: String) {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle(title)
+        dialog.setMessage(text)
+        dialog.setPositiveButton("OK") { dialog, which ->
+            toMainActivity()
+            dialog.dismiss()}
+        dialog.show()
+    }
+
     override fun <T> createConfirmationDialog(title: String, text: String, parameter: List<T>?,function: ((personLayout: List<T>?) -> Unit)?) {
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle(title)
@@ -400,5 +411,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         presenter.deleteGasto(gastoLayout, linearLayout)
         presenter.setPrecioTotal()
+    }
+
+    fun toMainActivity() {
+        val intent = Intent(this@TravelEditionActivity, MainActivity::class.java)
+        startActivity(intent)
     }
 }

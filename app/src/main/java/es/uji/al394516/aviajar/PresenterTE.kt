@@ -118,7 +118,7 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
 
         }else{
             model.insertTravelDatabase(id, name, place);
-            view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito")//TODO hacer que cuando pulse el ok lo lleve a la 4º activity(funcion generica)
+            view.createAlertDialogNextActivity("Viaje insertado","Viaje agregado a la base de datos con exito")
             view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
         }
     }
