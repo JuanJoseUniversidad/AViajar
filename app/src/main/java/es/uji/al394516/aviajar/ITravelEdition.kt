@@ -3,6 +3,7 @@ package es.uji.al394516.aviajar
 import android.view.View
 import android.widget.TextView
 import es.uji.al394516.aviajar.classes.Expense
+import es.uji.al394516.aviajar.classes.Travel
 
 interface ITravelEdition {
     var precioTotal: String
@@ -16,4 +17,6 @@ interface ITravelEdition {
     fun showPlaces(ingredients: List<String>)
     fun showMessage(message: String)
     fun enableProgressBar(enable: Int)
+    fun setTravel(travel :Travel)
+    fun getTravel(): Travel?
 }

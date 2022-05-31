@@ -53,15 +53,15 @@ interface ITravelsDAO {
     @Query("SELECT * FROM PersonExpenseEntity ORDER BY personID,expeseName")
     fun readAllPersonExpense():List<PersonExpenseEntity>
 
-    //Todas las personas de un viaje(revisar)
+    //All people of a travel
     @Query("SELECT pe.* FROM PersonEntity AS pe LEFT JOIN TravelEntity AS te ON pe.travelID=te.id WHERE te.id = :travelId ORDER BY pe.name")
     fun readAllPersonFromATravel(travelId:Int):List<PersonEntity>
 
-    //Todos los gastos de un viaje
+    //All expenses of a travel
     @Query("SELECT ee.* FROM ExpenseEntity AS ee LEFT JOIN TravelEntity AS te ON ee.tavelID=te.id WHERE te.id = :travelId ORDER BY ee.name")
     fun readAllExpensesFromATravel(travelId:Int):List<ExpenseEntity>
 
-    //Las parte dividida de un gasto entre las personas
+    //Expense part divided by each person
     @Query("SELECT * FROM PersonExpenseEntity WHERE personID = :personID AND LOWER(expeseName) LIKE LOWER(:expenseName)")
     fun readAllExpensePerPerson(personID:Int, expenseName:String):PersonExpenseEntity
 

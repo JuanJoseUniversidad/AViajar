@@ -73,7 +73,7 @@ class TravelResultsActivity : AppCompatActivity(), ITravelResults {
      * Start the new activity with the selected elements
      */
     override fun startActivity(travel:Travel){
-       // val intent = Intent(this@TravelResultsActivity,DescriptionActivity::class.java)
+        val intent = Intent(this@TravelResultsActivity,TravelEditionActivity::class.java)
         val trDetail:Travel = travel;
         intent.putExtra("EditMode", true)
         intent.putExtra("CurrentTravel", trDetail)

@@ -6,7 +6,7 @@ class PresenterMainView(val view: IMainView, model: Model) {
         model.getAllTravels({
                 view.enableButton(true)
         },{
-            view.showMessage(it.toString())
+            view.showMessage("No existe ningun viaje en la base de datos")
             view.enableButton(false)
         })
     }
