@@ -104,6 +104,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             createAddGastoDialog("Añadir gasto", null, null)
         }
 
+        if(currentTravel != null){
+            travelId = currentTravel!!.id
+            travelName = currentTravel!!.name
+            placeName = currentTravel!!.place
+        }
+
         anadirViaje.setOnClickListener{
             travelName = nameText.text.toString()
             presenter.insertTravel(travelId,travelName,placeName);
@@ -128,14 +134,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //presenter
         presenter = PresenterTE(this, Model(applicationContext))
 
-        if(currentTravel != null){
-            travelId = currentTravel!!.id
-            travelName = currentTravel!!.name
-            placeName = currentTravel!!.place
-        }
-
         //funciones iniciales
-        presenter.travelExists(currentTravel)
+        presenter.travelExists(currentTravel,editMode)
     }
 
     //region ITravelEdition

@@ -271,4 +271,11 @@ class Model(context: Context) {
             }
         }
     }
+
+    /**
+     * Delete a travel
+     */
+    fun deleteTravel(travel:Travel){
+        database.dao.deleteTravel(TravelEntity(travel.id,travel.name,travel.place))
+    }
 }

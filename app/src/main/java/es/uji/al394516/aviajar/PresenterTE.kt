@@ -35,16 +35,20 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         })
     }
 
-    fun travelExists(currentTravel: Travel?) {
+    fun travelExists(currentTravel: Travel?, editMode:Boolean) {
         //si no tenemos viaje, activar edicion de viaje
         if (currentTravel == null){
             view.canUserModifyTravel(true)
             return
+        }else if(editMode == true){
+            //si tenemos viaje, rellenar los campos y bloquear edicion por el usuario
+            view.fillLayout()
+            view.canUserModifyTravel(true)
+        }else{
+            //si tenemos viaje, rellenar los campos y bloquear edicion por el usuario
+            view.fillLayout()
+            view.canUserModifyTravel(false)
         }
-
-        //si tenemos viaje, rellenar los campos y bloquear edicion por el usuario
-        view.fillLayout()
-        view.canUserModifyTravel(false)
     }
 
     fun addNewPerson(person:Person){
@@ -113,8 +117,9 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
 
         }else{
             model.insertTravelDatabase(id, name, place);
-            view.createAlertDialogNextActivity("Viaje insertado","Viaje agregado a la base de datos con exito")
             view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
+            view.createAlertDialogNextActivity("Viaje insertado","Viaje agregado a la base de datos con exito")
+
         }
     }
 }
