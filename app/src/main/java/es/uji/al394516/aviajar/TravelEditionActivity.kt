@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.iterator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.uji.al394516.aviajar.classes.Person
@@ -277,16 +278,18 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     private fun modifyScrollsButtons(invisible: Int) {
         //personsScroll
         val linearLayoutPersonas: LinearLayout = personasScroll.getChildAt(0) as LinearLayout
-        for (card in linearLayoutPersonas){
-            val cardLL: LinearLayout = (card as CardView).getChildAt(0) as LinearLayout
+        for (view in linearLayoutPersonas){
+            val card: CardView = (view as ConstraintLayout).getChildAt(0) as CardView
+            val cardLL: LinearLayout = card.getChildAt(0) as LinearLayout
             cardLL.getChildAt(1).visibility = invisible
             cardLL.getChildAt(2).visibility = invisible
         }
 
         //gastosScroll
         val linearLayoutGastos: LinearLayout = gastosScroll.getChildAt(0) as LinearLayout
-        for (card in linearLayoutGastos){
-            val cardLL: LinearLayout = (card as CardView).getChildAt(0) as LinearLayout
+        for (view in linearLayoutGastos){
+            val card: CardView = (view as ConstraintLayout).getChildAt(0) as CardView
+            val cardLL: LinearLayout = card.getChildAt(0) as LinearLayout
             cardLL.getChildAt(1).visibility = invisible
             cardLL.getChildAt(2).visibility = invisible
         }
