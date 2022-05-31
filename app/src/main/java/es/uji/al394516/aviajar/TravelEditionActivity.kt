@@ -187,10 +187,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         placeText.setText(currentTravel!!.place)
 
         fillPersonasScroll()
-        
-        //TODO("Lo que pone debajo")
-        //fillGastosScroll()
 
+        fillGastosScroll()
 
         //set precioTotalText
         presenter.setPrecioTotal()
@@ -308,6 +306,15 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
+    /**
+     * Function that fill the gastosScroll with the expenses of the travel
+     */
+    private fun fillGastosScroll(){
+        for (gasto in currentTravel!!.expenses){
+            onOkExpense(gasto.name, gasto.price, gasto.person_money, null, true)
+        }
+    }
+
     //region IDialogsFunctions
     override fun onAccept(text: String, personLayout:View?, internalUse: Boolean) {
         //Insert a new person on the scroll view
@@ -352,7 +359,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
     }
 
-    override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?) {
+    override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?, internalUse: Boolean) {
         //crear gasto y añadir a la lista de gastos
         val newExpense = Expense(name, travelId, totalPrice, person_expense)
 
@@ -388,14 +395,16 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         presenter.setPrecioTotal()
 
         //mostrar Toast
-        var message: String
-        if (gastoLayout == null){
-            message = "Gasto añadido"
-        }else{
-            message = "Gasto editado"
+        if (!internalUse){
+            var message: String
+            if (gastoLayout == null){
+                message = "Gasto añadido"
+            }else{
+                message = "Gasto editado"
+            }
+            val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
+            toast.show()
         }
-        val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
-        toast.show()
     }
     //endregion
 

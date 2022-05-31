@@ -7,5 +7,5 @@ import es.uji.al394516.aviajar.classes.Personid
 
 interface IDialogsFunctions {
     fun onAccept(text:String, personLayout: View?, internalUse: Boolean)
-    fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?)
+    fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?, internalUse: Boolean)
 }

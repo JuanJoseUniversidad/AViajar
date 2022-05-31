@@ -131,7 +131,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
         if (gastoPrecio.text.toString() != ""){
             var difference: Double = model.checkGastosDialogSum(gastoPrecio.text.toString().toDouble(), personaGastoRelationAux)
             if (difference == 0.0){
-                gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux, gastoLayout)
+                gastoListener.onOkExpense(gastoName.text.toString(), gastoPrecio.text.toString().toDouble(), personaGastoRelationAux, gastoLayout, false)
                 dismiss()
             }
             else{
