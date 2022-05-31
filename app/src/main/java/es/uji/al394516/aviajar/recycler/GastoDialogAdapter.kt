@@ -32,7 +32,7 @@ class GastoDialogAdapter(val personaGastoMap: MutableMap<Personid, Double>, val 
             personGasto.addTextChangedListener(object: TextWatcher{
                 override fun afterTextChanged(p0: Editable?) {
                     val actualKey = llaves[layoutPosition]
-                    if (personGasto.text.toString() == "")
+                    if (personGasto.text.toString() == "" || personGasto.text.toString() == ".")
                         personaGastoMap[actualKey] = 0.0
                     else{
                         val precioUnitario: Double = personGasto.text.toString().toDouble()

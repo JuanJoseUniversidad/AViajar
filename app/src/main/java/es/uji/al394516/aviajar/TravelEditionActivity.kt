@@ -386,6 +386,13 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }else{
             gastoLayout.findViewById<TextView>(R.id.personName).text = name
 
+            //Edit gasto, machacar el setOnClikListener
+            val editButton = gastoLayout.findViewById<FloatingActionButton>(R.id.editPerson)
+            editButton.setOnClickListener(null)
+            editButton.setOnClickListener({
+                createAddGastoDialog("Editar gasto",gastoLayout, newExpense)
+            })
+
             val index = linearLayout.indexOfChild(gastoLayout)
             presenter.editGasto(newExpense, index)
         }
