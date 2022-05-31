@@ -27,7 +27,7 @@ interface ITravelsDAO {
     fun insertPersonsExpenses(travels: Array<PersonExpenseEntity>)
 
 
-    @Delete
+    @Delete (entity = TravelEntity::class)
     public fun deleteTravel(vararg travel: TravelEntity)
 
     @Delete

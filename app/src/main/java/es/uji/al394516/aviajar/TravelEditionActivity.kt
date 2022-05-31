@@ -115,6 +115,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             presenter.insertTravel(travelId,travelName,placeName);
         }
 
+        deleteViaje.setOnClickListener{
+            presenter.showDeleteTravel()
+        }
+
         //Set autocompleter event
         placeText.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -239,23 +243,18 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         agDialog.show(supportFragmentManager, "addgasto")
     }
 
-    override fun createAlertDialog(title: String, text: String) {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle(title)
-        dialog.setMessage(text)
-        dialog.setPositiveButton("OK") { dialog, which ->dialog.dismiss()}
-        dialog.show()
-    }
-
-    override fun createAlertDialogNextActivity(title: String, text: String) {
+    override fun createAlertDialog(title: String, text: String, function: (() -> Unit)?) {
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle(title)
         dialog.setMessage(text)
         dialog.setPositiveButton("OK") { dialog, which ->
-            toMainActivity()
+            if(function != null){
+                function()
+            }
             dialog.dismiss()}
         dialog.show()
     }
+
 
     override fun <T> createConfirmationDialog(title: String, text: String, parameter: List<T>?,function: ((personLayout: List<T>?) -> Unit)?) {
         val dialog = AlertDialog.Builder(this)
@@ -406,6 +405,24 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             toast.show()
         }
     }
+
+    override fun toEditMode(){
+        val intent = Intent(this@TravelEditionActivity, TravelEditionActivity::class.java)
+        val trDetail: Travel? = currentTravel;
+        intent.putExtra("EditMode", true)
+        intent.putExtra("CurrentTravel", trDetail)
+        startActivity(intent)
+    }
+
+    override fun toMainActivity() {
+        val intent = Intent(this@TravelEditionActivity, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun deleteTravel(){
+        presenter.deleteTravel(currentTravel)
+
+    }
     //endregion
 
     private fun <T> removePerson(parameters: List<T>?){
@@ -429,16 +446,4 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         presenter.setPrecioTotal()
     }
 
-    fun toMainActivity() {
-        val intent = Intent(this@TravelEditionActivity, MainActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun toEditMode(){
-        val intent = Intent(this@TravelEditionActivity, TravelEditionActivity::class.java)
-        val trDetail: Travel? = currentTravel;
-        intent.putExtra("EditMode", true)
-        intent.putExtra("CurrentTravel", trDetail)
-        startActivity(intent)
-    }
 }

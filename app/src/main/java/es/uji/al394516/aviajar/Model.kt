@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONException
 import java.lang.Exception
 import kotlin.math.exp
 
@@ -276,7 +277,17 @@ class Model(context: Context) {
     /**
      * Delete a travel
      */
-    fun deleteTravel(travel:Travel){
-        database.dao.deleteTravel(TravelEntity(travel.id,travel.name,travel.place))
+    fun deleteTravel(travel:Travel?,listener: Response.Listener<Boolean>, errorListener: Response.ErrorListener){
+        GlobalScope.launch(Dispatchers.Main) {
+            GlobalScope.launch {
+                try {
+                    //delete the Travel
+                    database.dao.deleteTravel(TravelEntity(travel!!.id, travel!!.name, travel!!.place))
+                    listener.onResponse(true)
+                }catch (e: Exception) {
+                    errorListener.onErrorResponse(VolleyError("Error delete database"))
+                }
+            }
+        }
     }
 }

@@ -118,8 +118,19 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         }else{
             model.insertTravelDatabase(id, name, place);
             view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
-            view.createAlertDialogNextActivity("Viaje insertado","Viaje agregado a la base de datos con exito")
-
+            view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toEditMode)
         }
+    }
+
+    fun showDeleteTravel(){
+        view.createAlertDialog("Viaje eliminado","Este viaje se borrara ¿esta seguro?", view::deleteTravel)
+    }
+
+    fun deleteTravel(travel:Travel?){
+        model.deleteTravel(travel,{
+            view.toMainActivity()
+        },{
+            view.showMessage("Ha ocurrido un error borrando el elemento")
+        })
     }
 }
