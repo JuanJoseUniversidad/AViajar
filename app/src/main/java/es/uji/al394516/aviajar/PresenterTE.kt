@@ -12,6 +12,14 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
 
     init{
         model.clearPersonList()//To rebuild the list from sratch and avoid future problems
+        model.clearExpensesList()
+
+        //If there is a valid travel assing to the aux list
+        if(view.getTravel() != null){
+            model.setAuxPeople(view.getTravel()!!.people.toMutableList())
+            model.setAuxGasto(view.getTravel()!!.expenses.toMutableList())
+        }
+
         getPlacesNetwork()
     }
 
@@ -92,5 +100,22 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         val precioTotal: Double = model.precioTotal()
 
         view.precioTotal = precioTotal.toString() + "€"
+    }
+
+    fun insertTravel(id:Int,name:String,place:String){
+        if(name == ""){
+            view.createAlertDialog("No se puede añadir","EL viaje ha de tener un nombre")
+
+        }else if(place==""){
+            view.createAlertDialog("No se puede añadir","EL viaje ha de tener un lugar")
+
+        }else if(model.getAuxPeople().size < 1 && model.getAuxGasto().size < 1) {
+            view.createAlertDialog("No se puede añadir","EL viaje ha de tener una persona y un gasto")
+
+        }else{
+            model.insertTravelDatabase(id, name, place);
+            view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito")//TODO hacer que cuando pulse el ok lo lleve a la 4º activity(funcion generica)
+            view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
+        }
     }
 }

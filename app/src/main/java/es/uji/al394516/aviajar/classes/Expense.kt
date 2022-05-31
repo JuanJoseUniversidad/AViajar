@@ -12,7 +12,7 @@ class Expense(val name:String, val tavelID:Int, val price:Double, val person_mon
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readDouble(),
-        parcel.readParcelable(MutableMap::class.java.classLoader)!!
+        parcel.readHashMap(MutableMap::class.java.classLoader) as MutableMap<Personid,Double>
     ) {
     }
 

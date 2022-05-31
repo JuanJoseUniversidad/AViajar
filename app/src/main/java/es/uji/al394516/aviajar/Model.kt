@@ -10,7 +10,7 @@ import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Person
 import es.uji.al394516.aviajar.classes.Personid
 import es.uji.al394516.aviajar.classes.Travel
-import es.uji.al394516.aviajar.database.TravelDatabase
+import es.uji.al394516.aviajar.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -93,6 +93,13 @@ class Model(context: Context) {
      */
     fun clearPersonList(){
         personList.clear()
+    }
+
+    /**
+     * Clear the list of persons
+     */
+    fun clearExpensesList(){
+        gastosList.clear()
     }
 
     /**
@@ -183,6 +190,28 @@ class Model(context: Context) {
     }
 
     /**
+     * Function that set a list on [personList]
+     */
+    fun setAuxPeople(pl:MutableList<Person>) {
+        personList = pl
+    }
+
+
+    /**
+     * Function that returns a copy of [gastosList]
+     */
+    fun getAuxGasto(): List<Expense>{
+        return gastosList
+    }
+
+    /**
+     * Function that set a list on [personList]
+     */
+    fun setAuxGasto(gl:MutableList<Expense>) {
+        gastosList = gl
+    }
+
+    /**
      * Gets places from API if there is an error return an a list with one item "Undefined"*/
     fun getPlaces(listener: Response.Listener<List<String>>, errorListener: Response.ErrorListener) /*: Array<Ingredients>*/{
         // Launch a coroutine
@@ -207,5 +236,28 @@ class Model(context: Context) {
             precio += gasto.price
         }
         return precio
+    }
+
+    fun insertTravelDatabase(id:Int,name:String,place:String){
+        GlobalScope.launch(Dispatchers.Main) {
+            GlobalScope.launch {
+                //inserting the Travel
+                database.dao.insertTravel(TravelEntity(id,name,place))
+            }
+            GlobalScope.launch {
+                //inserting persons
+                for (person in personList) {
+                   database.dao.insertPerson(PersonEntity(person.id,person.name,person.travelID))
+                }
+
+                //insert expenses
+                for (expense in gastosList) {
+                    database.dao.insertExpense(ExpenseEntity(expense.name,expense.tavelID,expense.price))
+                    for (ep in expense.person_money){
+                        database.dao.insertPersonExpense(PersonExpenseEntity(ep.key,expense.name,ep.value.toFloat()))//TODO cambiar los tipos de FLOAT a DOUBLE
+                    }
+                }
+            }
+        }
     }
 }

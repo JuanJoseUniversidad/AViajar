@@ -29,7 +29,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     //datos miembro local
     //TODO("modificar si currentTravel existe")
     private var travelId:Int = 0;
-
+    private var travelName: String=""
     private var placeName:String = ""
 
     //referencias del layout
@@ -62,6 +62,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //obtener datos que nos pasan las activities
         editMode = intent.getBooleanExtra("EditMode", false)
         currentTravel = intent.extras!!.get("CurrentTravel") as Travel?
+
 
         //
         if(editMode == true && currentTravel == null){
@@ -97,6 +98,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             createAddGastoDialog("Añadir gasto", null, null)
         }
 
+        anadirViaje.setOnClickListener{
+            travelName = nameText.text.toString()
+            presenter.insertTravel(travelId,travelName,placeName);
+        }
+
         //Set autocompleter event
         placeText.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -116,6 +122,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         //presenter
         presenter = PresenterTE(this, Model(applicationContext))
 
+        if(currentTravel != null){
+            travelId = currentTravel!!.id
+            travelName = currentTravel!!.name
+            placeName = currentTravel!!.place
+        }
+
         //funciones iniciales
         presenter.travelExists(currentTravel)
     }
@@ -126,6 +138,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         set(value) {
             precioTotalText.text = value
         }
+
+    override fun setTravel(travel: Travel) {
+        currentTravel = travel
+    }
+
+    override fun getTravel(): Travel? {
+        return currentTravel
+    }
 
     /**
      * Enables and disables the ProgressBar
