@@ -14,14 +14,9 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         model.clearPersonList()//To rebuild the list from sratch and avoid future problems
         model.clearExpensesList()
 
-        //If there is a valid travel assing to the aux list
-        if(view.getTravel() != null){
-            model.setAuxPeople(view.getTravel()!!.people.toMutableList())
-            model.setAuxGasto(view.getTravel()!!.expenses.toMutableList())
-        }
-
         getPlacesNetwork()
     }
+
 
     fun resetAllExpensesPerPerson(){
         model.resetMapAllExpense()

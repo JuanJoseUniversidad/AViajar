@@ -92,6 +92,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         progressBarNetwork = findViewById(R.id.progressBarNetwork)
 
         //eventos
+        editViaje.setOnClickListener{
+            toEditMode()
+        }
+
         anadirPersona.setOnClickListener {
             createAddPersonDialog("Añadir persona")
         }
@@ -418,6 +422,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
     fun toMainActivity() {
         val intent = Intent(this@TravelEditionActivity, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun toEditMode(){
+        val intent = Intent(this@TravelEditionActivity, TravelEditionActivity::class.java)
+        val trDetail: Travel? = currentTravel;
+        intent.putExtra("EditMode", true)
+        intent.putExtra("CurrentTravel", trDetail)
         startActivity(intent)
     }
 }

@@ -22,7 +22,6 @@ class PresenterTR(val view: ITravelResults, val model: Model) {
      */
     fun connect(){
 
-//        TODO("Llamada asyncrona, que se le pase una lista de travel el cual construya el objeto travel a raiz de la info de la bd local")
         model.getAllTravels({
             view.fillRecyclerView(it)
             view.hideLoadingBar()
