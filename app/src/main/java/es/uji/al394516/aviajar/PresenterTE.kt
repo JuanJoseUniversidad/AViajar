@@ -23,6 +23,10 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         getPlacesNetwork()
     }
 
+    fun resetAllExpensesPerPerson(){
+        model.resetMapAllExpense()
+    }
+
     fun getPlacesNetwork(){
         model.getPlaces({
             view.showPlaces(it)

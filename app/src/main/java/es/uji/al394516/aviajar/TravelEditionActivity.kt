@@ -317,6 +317,8 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,travelId))
             presenter.debugPersonList()
 
+            presenter.resetAllExpensesPerPerson()//Resets the values of the map for each expense
+
             if (!internalUse){
                 //Shows dialog to warn the user that a new person its added
                 createAlertDialog("Persona añadida","Persona añadida y gastos reiniciados")
@@ -387,7 +389,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         linearLayout.removeView(personLayout)
 
-        //TODO("reiniciar gastos")
+        presenter.resetAllExpensesPerPerson()//Resets the values of the map for each expense
         createAlertDialog("Persona borrada", "Persona borrada y gastos reiniciados");
     }
 

@@ -260,4 +260,15 @@ class Model(context: Context) {
             }
         }
     }
+
+    /**
+     * Resets all the values of the map of all expenses
+     */
+    fun resetMapAllExpense(){
+        for (e in gastosList){
+            for(price in e.person_money){
+                e.person_money[price.key] = 0.0
+            }
+        }
+    }
 }
