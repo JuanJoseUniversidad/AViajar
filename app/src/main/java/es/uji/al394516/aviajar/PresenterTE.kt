@@ -118,7 +118,7 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         }else{
             model.insertTravelDatabase(id, name, place);
             view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
-            view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toEditMode)
+            view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toMainActivity)
         }
     }
 
