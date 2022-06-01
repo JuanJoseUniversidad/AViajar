@@ -17,18 +17,20 @@ import androidx.room.PrimaryKey
     )]
 )
 data class ExpenseEntity(
-    @PrimaryKey val name:String,
+    @PrimaryKey val id:Int,
+    val name:String,
     @ColumnInfo(index = true) val tavelID:Int,
     val price:Double
-    ):Parcelable {
+    ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readDouble()
-    ) {
+        parcel.readDouble()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeInt(tavelID)
         parcel.writeDouble(price)
@@ -47,4 +49,5 @@ data class ExpenseEntity(
             return arrayOfNulls(size)
         }
     }
+
 }

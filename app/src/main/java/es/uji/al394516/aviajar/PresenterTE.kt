@@ -124,7 +124,8 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
                 view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toMainActivity)
             },{
                 view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
-                view.createAlertDialog("Error","Ha sucedido un error inesperado", view::toMainActivity)
+                //view.showMessage(it.toString())
+                //view.createAlertDialog("Error","Ha sucedido un error inesperado", view::toMainActivity)
             })
         }
     }
@@ -139,5 +140,9 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         },{
             view.showMessage("Ha ocurrido un error borrando el elemento")
         })
+    }
+
+    fun setPeople(people:MutableList<Person>){
+        model.setAuxPeople(people)
     }
 }
