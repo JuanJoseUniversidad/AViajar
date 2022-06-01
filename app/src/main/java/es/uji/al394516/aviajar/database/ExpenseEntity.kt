@@ -2,6 +2,7 @@ package es.uji.al394516.aviajar.database
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
@@ -17,7 +18,7 @@ import androidx.room.PrimaryKey
 )
 data class ExpenseEntity(
     @PrimaryKey val name:String,
-    val tavelID:Int,
+    @ColumnInfo(index = true) val tavelID:Int,
     val price:Double
     ):Parcelable {
     constructor(parcel: Parcel) : this(
