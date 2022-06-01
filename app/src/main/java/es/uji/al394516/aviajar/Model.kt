@@ -245,27 +245,32 @@ class Model(context: Context) {
             GlobalScope.launch {
 
                     //inserting the Travel
-
-                         database.dao.insertTravel(TravelEntity(id, name, place))
-
+                withContext(Dispatchers.IO) {
+                    database.dao.insertTravel(TravelEntity(id, name, place))
+                }
                      //inserting persons
                      for (person in personList) {
-
+                         withContext(Dispatchers.IO) {
                              database.dao.insertPerson(PersonEntity(person.id,
                                  person.name,
                                  person.travelID))
+                         }
 
                      }
 
                      //insert expenses
                  for (expense in gastosList) {
-
+                     withContext(Dispatchers.IO) {
                          database.dao.insertExpense(ExpenseEntity(expense.name,
                              expense.tavelID,
                              expense.price))
-
+                     }
                          for(ep in expense.person_money){
-                             database.dao.insertPersonExpense(PersonExpenseEntity(ep.key,expense.name,ep.value.toFloat()))
+                             withContext(Dispatchers.IO) {
+                                 database.dao.insertPersonExpense(PersonExpenseEntity(ep.key,
+                                     expense.name,
+                                     ep.value.toFloat()))
+                             }
                          }
 
                  }

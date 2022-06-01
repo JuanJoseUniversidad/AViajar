@@ -171,8 +171,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
      * @param message An String of the message
      */
     override fun showMessage(message: String){
-        val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
-        toast.show()
+        runOnUiThread {
+            val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
+            toast.show()
+        }
     }
 
     /**
