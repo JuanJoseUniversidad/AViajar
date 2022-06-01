@@ -2,6 +2,7 @@ package es.uji.al394516.aviajar.database
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -21,8 +22,8 @@ import androidx.room.PrimaryKey
     primaryKeys = ["personID","expeseName"]
 )
 data class PersonExpenseEntity(
-    val personID: Int,
-    val expeseName:String,
+    @ColumnInfo(index = true) val personID: Int,
+    @ColumnInfo(index = true) val expeseName:String,
     val price:Float
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

@@ -16,6 +16,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONException
+import java.io.EOFException
 import java.lang.Exception
 import kotlin.math.exp
 
@@ -242,22 +243,33 @@ class Model(context: Context) {
     fun insertTravelDatabase(id:Int,name:String,place:String){
         GlobalScope.launch(Dispatchers.Main) {
             GlobalScope.launch {
-                //inserting the Travel
-                database.dao.insertTravel(TravelEntity(id,name,place))
-            }
-            GlobalScope.launch {
-                //inserting persons
-                for (person in personList) {
-                   database.dao.insertPerson(PersonEntity(person.id,person.name,person.travelID))
-                }
 
-                //insert expenses
-                for (expense in gastosList) {
-                    database.dao.insertExpense(ExpenseEntity(expense.name,expense.tavelID,expense.price))
-                    for (ep in expense.person_money){
-                        database.dao.insertPersonExpense(PersonExpenseEntity(ep.key,expense.name,ep.value.toFloat()))//TODO cambiar los tipos de FLOAT a DOUBLE
-                    }
-                }
+                    //inserting the Travel
+
+                         database.dao.insertTravel(TravelEntity(id, name, place))
+
+                     //inserting persons
+                     for (person in personList) {
+
+                             database.dao.insertPerson(PersonEntity(person.id,
+                                 person.name,
+                                 person.travelID))
+
+                     }
+
+                     //insert expenses
+                 for (expense in gastosList) {
+
+                         database.dao.insertExpense(ExpenseEntity(expense.name,
+                             expense.tavelID,
+                             expense.price))
+
+                         for(ep in expense.person_money){
+                             database.dao.insertPersonExpense(PersonExpenseEntity(ep.key,expense.name,ep.value.toFloat()))
+                         }
+
+                 }
+
             }
         }
     }

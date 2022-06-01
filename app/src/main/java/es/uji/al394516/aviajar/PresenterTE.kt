@@ -1,5 +1,7 @@
 package es.uji.al394516.aviajar
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.LinearLayout
 import es.uji.al394516.aviajar.classes.Expense
@@ -116,9 +118,14 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
             view.createAlertDialog("No se puede añadir","EL viaje ha de tener una persona y un gasto")
 
         }else{
-            model.insertTravelDatabase(id, name, place);
-            view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
-            view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toMainActivity)
+            model.deleteTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()),{
+                model.insertTravelDatabase(id, name, place)
+                view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
+                view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toMainActivity)
+            },{
+                view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
+                view.createAlertDialog("Error","Ha sucedido un error inesperado", view::toMainActivity)
+            })
         }
     }
 

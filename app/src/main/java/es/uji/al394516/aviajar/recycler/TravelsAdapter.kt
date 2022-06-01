@@ -65,6 +65,8 @@ class TravelsAdapter (val travelsList: List<Travel>, val presenterTR:PresenterTR
             holder.titleText.text = name
             holder.textPlace.text = place
             holder.textPeople.text = people.size.toString()
+            //lo siento, se nos olvido poner un parametro y ahora es cambiar demasiado codigo
+            holder.textTotalPrice.text = holder.preciosTotales[position].toString()
         }
     }
 
@@ -81,11 +83,23 @@ class TravelsAdapter (val travelsList: List<Travel>, val presenterTR:PresenterTR
         lateinit var titleText: TextView;
         lateinit var textPlace: TextView;
         lateinit var textPeople: TextView;
+        lateinit var textTotalPrice:TextView
+
+        var preciosTotales : MutableList<Double> = mutableListOf()
 
         init{
             titleText = itemView.findViewById(R.id.TitleTravel);
             textPlace = itemView.findViewById(R.id.textPlace);
             textPeople = itemView.findViewById(R.id.textPeople);
+            textTotalPrice = itemView.findViewById(R.id.textPrice)
+
+            for(t in travelsList){
+                var total: Double = 0.0
+                for (expense in t.expenses){
+                    total += expense.price
+                }
+                preciosTotales.add(total)
+            }
 
             itemView.setOnClickListener{
                 presenterTR.launchActivity(travelsList[getLayoutPosition()]);//Gets the travel details

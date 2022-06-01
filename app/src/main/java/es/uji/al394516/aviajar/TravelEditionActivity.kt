@@ -112,6 +112,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         anadirViaje.setOnClickListener{
             travelName = nameText.text.toString()
+            placeName = placeText.text.toString()
             presenter.insertTravel(travelId,travelName,placeName);
         }
 
@@ -230,8 +231,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     }
 
     override fun createAddPersonDialog(title:String, personLayout:View?) {
-        val apDialog: AddPersonDialog = AddPersonDialog(title, personLayout)
-        apDialog.show(supportFragmentManager,"addperson")
+        runOnUiThread {
+            val apDialog: AddPersonDialog = AddPersonDialog(title, personLayout)
+            apDialog.show(supportFragmentManager, "addperson")
+        }
     }
 
     override fun createAddGastoDialog(title: String, gastoLayout: View?, gasto: Expense?) {
@@ -244,15 +247,17 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     }
 
     override fun createAlertDialog(title: String, text: String, function: (() -> Unit)?) {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle(title)
-        dialog.setMessage(text)
-        dialog.setPositiveButton("OK") { dialog, which ->
-            if(function != null){
-                function()
-            }
-            dialog.dismiss()}
-        dialog.show()
+        runOnUiThread {
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle(title)
+            dialog.setMessage(text)
+            dialog.setPositiveButton("OK") { dialog, which ->
+                if(function != null){
+                    function()
+                }
+                dialog.dismiss()}
+            dialog.show()
+        }
     }
 
 
