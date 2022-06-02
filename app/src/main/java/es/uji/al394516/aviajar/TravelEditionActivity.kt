@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -134,7 +135,23 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
                         //presenter.setChosenIngredient(listplaces[it])
                 }
             }
-        })        
+        })
+
+        //reescalar los scrollview a moviles pequeños
+        val displayMetrics = DisplayMetrics()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            display?.getRealMetrics(displayMetrics)
+        } else {
+            @Suppress("DEPRECATION")
+            val display = windowManager.defaultDisplay
+            @Suppress("DEPRECATION")
+            display.getMetrics(displayMetrics)
+        }
+
+        if (displayMetrics.heightPixels <= 480){
+            personasScroll.layoutParams.height = 50
+            gastosScroll.layoutParams.height = 50
+        }
 
         //presenter
         presenter = PresenterTE(this, Model(applicationContext))

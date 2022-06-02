@@ -76,7 +76,9 @@
         android:layout_height="wrap_content"
         android:text="Añadir Persona"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/progressBarNetwork" />
+        app:layout_constraintEnd_toStartOf="@+id/progressBarNetwork"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView3"
