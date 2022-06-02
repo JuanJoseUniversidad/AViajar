@@ -119,8 +119,8 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         }else if(place==""){
             view.createAlertDialog("No se puede añadir","EL viaje ha de tener un lugar")
 
-        }else if(model.getAuxPeople().size < 1 && model.getAuxGasto().size < 1) {
-            view.createAlertDialog("No se puede añadir","EL viaje ha de tener una persona y un gasto")
+        }else if(model.getAuxPeople().size < 1 || model.getAuxGasto().size < 1) {
+            view.createAlertDialog("No se puede añadir","EL viaje ha de tener al menos una persona y un gasto")
 
         }else{
             model.deleteTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()),{
