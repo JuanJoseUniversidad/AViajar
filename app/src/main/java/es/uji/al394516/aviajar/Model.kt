@@ -64,7 +64,7 @@ class Model(context: Context) {
                         //Gets the corresponding part of the espense per person (MEJORAR ESTO POR FAVOR!!!!!!)
                         for(person in peopleTravel) {
                             val expense_person = withContext(Dispatchers.IO) {
-                                database.dao.readAllExpensePerPerson(person.id, expense.name)
+                                database.dao.readAllExpensePerPerson(person.id, expense.id)
                             }
 
                             if(expense_person != null){
@@ -72,7 +72,7 @@ class Model(context: Context) {
                             }
 
                         }
-                        expenses.add(Expense(expense.name,expense.tavelID,expense.price,expense_price_per_person))
+                        expenses.add(Expense(expense.id,expense.name,expense.tavelID,expense.price,expense_price_per_person))
                     }
 
                     listData.add(Travel(entity.id,entity.name,entity.place,people, expenses))
@@ -261,16 +261,17 @@ class Model(context: Context) {
                      //insert expenses
                  for (expense in gastosList) {
                      withContext(Dispatchers.IO) {
-                         database.dao.insertExpense(ExpenseEntity(expense.name,
+                         database.dao.insertExpense(ExpenseEntity(expense.id, expense.name,
                              expense.tavelID,
                              expense.price))
                      }
                          for(ep in expense.person_money){
-                             withContext(Dispatchers.IO) {
-                                 database.dao.insertPersonExpense(PersonExpenseEntity(ep.key,
+                            // withContext(Dispatchers.IO) {
+                                 val p = PersonExpenseEntity(ep.key,expense.id,
                                      expense.name,
-                                     ep.value.toFloat()))
-                             }
+                                     ep.value.toFloat())
+                                 database.dao.insertPersonExpense(p)
+                            //8 }
                          }
 
                  }

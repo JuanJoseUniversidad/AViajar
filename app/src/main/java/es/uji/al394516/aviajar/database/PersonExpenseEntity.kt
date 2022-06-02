@@ -16,25 +16,27 @@ import androidx.room.PrimaryKey
     ),
     ForeignKey(
         entity = ExpenseEntity::class,
-        parentColumns = ["name"],
-        childColumns = ["expeseName"]
+        parentColumns = ["id"],
+        childColumns = ["expenseID"]
     )],
-    primaryKeys = ["personID","expeseName"]
+    primaryKeys = ["personID","expenseID"]
 )
 data class PersonExpenseEntity(
     @ColumnInfo(index = true) val personID: Int,
+    @ColumnInfo(index = true) val expenseID:Int,
     @ColumnInfo(index = true) val expeseName:String,
     val price:Float
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readInt(),
         parcel.readString()!!,
-        parcel.readFloat()
-    ) {
+        parcel.readFloat()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(personID)
+        parcel.writeInt(expenseID)
         parcel.writeString(expeseName)
         parcel.writeFloat(price)
     }

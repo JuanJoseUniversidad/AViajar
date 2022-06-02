@@ -248,7 +248,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         agDialog.show(supportFragmentManager, "addgasto")
     }
 
-    override fun createAlertDialog(title: String, text: String, function: (() -> Unit)?) {
+    override fun createAlertDialog(title: String, text: String, function: (() -> Unit)?, cancelButton:Boolean) {
         runOnUiThread {
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle(title)
@@ -258,6 +258,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
                     function()
                 }
                 dialog.dismiss()}
+
+            if(cancelButton == true){
+                dialog.setNegativeButton("Cancel") { dialog, which ->
+                    dialog.dismiss()}
+            }
+
             dialog.show()
         }
     }
@@ -310,6 +316,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         for (person in currentTravel!!.people){
             onAccept(person.name, null, true)
         }
+        presenter.setPeople(currentTravel!!.people.toMutableList())
     }
 
     /**
@@ -346,6 +353,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             //UUID.randomUUID().toString().hashCode(): generates and unique id of 128 and hash it to convert it to an int of 32bits
             //this method avoids collisions.
             //If use UUID.randomUUID().toInt() can produce collisions
+            if(internalUse == false)
             presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,travelId))
             presenter.debugPersonList()
 
@@ -367,7 +375,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
     override fun onOkExpense(name: String, totalPrice: Double, person_expense: MutableMap<Personid, Double>, gastoLayout: View?, internalUse: Boolean) {
         //crear gasto y añadir a la lista de gastos
-        val newExpense = Expense(name, travelId, totalPrice, person_expense)
+        val newExpense = Expense(UUID.randomUUID().toString().hashCode(),name, travelId, totalPrice, person_expense)
 
         //actualizar scroll
         val inflater = LayoutInflater.from(this)
