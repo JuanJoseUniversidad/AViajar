@@ -471,6 +471,9 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         presenter.deleteGasto(gastoLayout, linearLayout)
         presenter.setPrecioTotal()
+
+        val toast = Toast.makeText(applicationContext, "Gasto borrado", Toast.LENGTH_LONG)
+        toast.show()
     }
 
 }
