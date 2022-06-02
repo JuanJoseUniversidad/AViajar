@@ -131,7 +131,7 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
     }
 
     fun showDeleteTravel(){
-        view.createAlertDialog("Viaje eliminado","Este viaje se borrara ¿esta seguro?", view::deleteTravel)
+        view.createAlertDialog("Viaje eliminado","Este viaje se borrara ¿esta seguro?", view::deleteTravel, true)
     }
 
     fun deleteTravel(travel:Travel?){

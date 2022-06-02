@@ -248,7 +248,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         agDialog.show(supportFragmentManager, "addgasto")
     }
 
-    override fun createAlertDialog(title: String, text: String, function: (() -> Unit)?) {
+    override fun createAlertDialog(title: String, text: String, function: (() -> Unit)?, cancelButton:Boolean) {
         runOnUiThread {
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle(title)
@@ -258,6 +258,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
                     function()
                 }
                 dialog.dismiss()}
+
+            if(cancelButton == true){
+                dialog.setNegativeButton("Cancel") { dialog, which ->
+                    dialog.dismiss()}
+            }
+
             dialog.show()
         }
     }
