@@ -18,6 +18,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONException
 import java.io.EOFException
 import java.lang.Exception
+import java.math.BigDecimal
 import kotlin.math.exp
 
 class Model(context: Context) {
@@ -179,9 +180,15 @@ class Model(context: Context) {
      * @return The difference between [precioTotal] and [personaGastoRelation]
      */
     fun checkGastosDialogSum(precioTotal: Double, personaGastoRelation: MutableMap<Personid,Double>): Double {
-        val totalSum = personaGastoRelation.entries.sumOf { it.value }
+        //val totalSum = personaGastoRelation.entries.sumOf { it.value }
+        var precioTotalBD: BigDecimal = BigDecimal(precioTotal.toString())
+        var totalSum: BigDecimal = BigDecimal("0.0")
 
-        return precioTotal - totalSum
+        for (precio in personaGastoRelation.values){
+            totalSum += BigDecimal(precio.toString())
+        }
+
+        return (precioTotalBD - totalSum).toDouble()
     }
 
     /**

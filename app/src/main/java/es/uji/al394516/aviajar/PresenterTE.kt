@@ -81,8 +81,13 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         model.debugPersons()
     }
 
-    fun deletePerson(index: Int){
+    fun deletePerson(index: Int): Boolean{
+        //mirar si no es la unica persona
+        if (model.getAuxPeople().size <= 1)
+            return false
+
         model.deletePerson(index)
+        return true
     }
 
     fun deleteGasto(gastoLayout: View, linearLayout: LinearLayout) {

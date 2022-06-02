@@ -354,7 +354,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             //this method avoids collisions.
             //If use UUID.randomUUID().toInt() can produce collisions
             if(internalUse == false)
-            presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,travelId))
+                presenter.addNewPerson(Person(UUID.randomUUID().toString().hashCode(),text,travelId))
             presenter.debugPersonList()
 
             presenter.resetAllExpensesPerPerson()//Resets the values of the map for each expense
@@ -451,9 +451,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         val linearLayout:LinearLayout = parameters?.get(0) as LinearLayout
         val personLayout: View = parameters?.get(1) as View
 
-        presenter.deletePerson(linearLayout.indexOfChild(personLayout))
+        val personaBorrada: Boolean = presenter.deletePerson(linearLayout.indexOfChild(personLayout))
         presenter.debugPersonList()
 
+        //si no se ha borrado persona es porque es la ultima persona
+        if (!personaBorrada){
+            createAlertDialog("ÚLTIMA PERSONA", "No puedes hacer un viaje sin gente")
+            return
+        }
         linearLayout.removeView(personLayout)
 
         presenter.resetAllExpensesPerPerson()//Resets the values of the map for each expense
