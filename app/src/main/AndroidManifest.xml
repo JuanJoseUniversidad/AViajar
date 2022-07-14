@@ -13,13 +13,16 @@
         android:theme="@style/Theme.AViajar">
         <activity
             android:name=".TravelEditionActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".TravelResultsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
