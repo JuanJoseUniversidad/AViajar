@@ -40,7 +40,7 @@ class GastoDialogAdapter(val personaGastoMap: MutableMap<Personid, Double>, val 
                         valores[layoutPosition] = precioUnitario
                     }
                     personGasto.requestFocus()
-                    personaGasto.requestFocusFromTouch()
+                    personGasto.requestFocusFromTouch()
                 }
 
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
