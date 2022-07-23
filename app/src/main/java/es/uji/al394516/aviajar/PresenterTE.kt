@@ -13,6 +13,8 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
     var places:List<String> = listOf("Undefined")
 
     init{
+        view.eeImageVisible = false
+
         model.clearPersonList()//To rebuild the list from sratch and avoid future problems
         model.clearExpensesList()
 

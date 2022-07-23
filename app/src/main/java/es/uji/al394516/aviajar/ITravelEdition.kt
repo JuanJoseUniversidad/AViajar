@@ -5,6 +5,7 @@ import es.uji.al394516.aviajar.classes.Expense
 import es.uji.al394516.aviajar.classes.Travel
 
 interface ITravelEdition {
+    var eeImageVisible: Boolean
     var precioTotal: String
 
     fun fillLayout()
