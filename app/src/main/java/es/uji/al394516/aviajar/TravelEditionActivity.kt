@@ -120,6 +120,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         anadirViaje.setOnClickListener{
             travelName = nameText.text.toString()
             placeName = placeText.text.toString()
+            presenter.checkEE(travelName, placeName)
             presenter.insertTravel(travelId,travelName,placeName);
         }
 
@@ -311,6 +312,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         dialog.setNegativeButton("Cancel") { dialog, which ->dialog.dismiss()}
         dialog.show()
+    }
+
+    override fun setEEImage(image: Int) {
+        eeImage.setImageResource(image)
     }
     //endregion
 

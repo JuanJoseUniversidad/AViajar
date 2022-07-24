@@ -27,6 +27,7 @@ class Model(context: Context) {
     //Network
     private val network = Network.getInstance(context)
 
+    //lista person
     private var personList:MutableList<Person> = mutableListOf()
 
     //lista aux gastos

@@ -22,4 +22,5 @@ interface ITravelEdition {
     fun toEditMode()
     fun deleteTravel()
     fun toMainActivity()
+    fun setEEImage(image: Int)
 }

@@ -152,4 +152,40 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
     fun setPeople(people:MutableList<Person>){
         model.setAuxPeople(people)
     }
+
+    /**
+     * Function that check if an Easter Egg condition occurs
+     * If there is an EE, show and change the image, sleep 1 second and continues
+     * Otherwise nothing
+     */
+    fun checkEE(travelName: String, placeName: String){
+        var eeNecesaryConditions = false
+        var image: Int? = null
+
+        /**
+         * If there is EE:
+         *  1º set eeNecesaryConditions to true
+         *  2º set the "path" of the image (R.drawable...)
+         */
+        //region EasterEggs
+        //EE1
+        if (travelName == "EasterEgg"){
+            eeNecesaryConditions = true
+            image = R.drawable.yellow_heart_90
+        }
+
+        //EE...
+        //else if(...)
+        //EEn
+
+        //endregion
+
+        if (eeNecesaryConditions) {
+            //Show and change image
+            view.eeImageVisible = true
+            view.setEEImage(image!!)
+
+            //sleep 1 second
+        }
+    }
 }
