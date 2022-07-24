@@ -472,6 +472,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
     override fun toMainActivity() {
         val intent = Intent(this@TravelEditionActivity, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) //this will lead us close the app if we BACK_BUTOTN and we are on the main activity
         startActivity(intent)
     }
 
