@@ -171,7 +171,7 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         //EE1
         if (travelName == "EasterEgg"){
             eeNecesaryConditions = true
-            image = R.drawable.yellow_heart_90
+            image = R.drawable.prueba_png
         }
 
         //EE...
