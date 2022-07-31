@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">AViajar</string>
+
+
+    <string name="nuevoViaje_str">Nuevo Viaje</string>
+    <string name="mirarViajes_str">Mirar Viajes</string>
+    <string name="authors_str">Autores: \nJuan José Gómez Simón \nAdrián Mon Maroto</string>
+
+
+    <string name="asunto_str">Asunto</string>
+    <string name="lugar_str">Lugar</string>
+    <string name="personas_str">Personas</string>
+    <string name="anadirPersona_str">Añadir Persona</string>
+    <string name="gastos_str">Gastos</string>
+    <string name="anadirGasto_str">AÑADIR GASTO</string>
+    <string name="preciototal_str">Precio Total: </string>
+
+
+    <string name="nombre_str">Nombre</string>
+    <string name="precio_str">Precio</string>
+    <string name="cancel_str">Cancelar</string>
+    <string name="ok_str">OK</string>
+</resources>
