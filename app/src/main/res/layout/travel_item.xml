@@ -49,7 +49,7 @@
                             android:layout_width="183dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Place"
+                            android:text="@string/lugar_str"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold|italic" />
 
@@ -72,7 +72,7 @@
                             android:layout_width="181dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="People"
+                            android:text="@string/nPersonas_str"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold|italic" />
 
@@ -95,7 +95,7 @@
                             android:layout_width="181dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total Price"
+                            android:text="@string/preciototal_str"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold" />
 

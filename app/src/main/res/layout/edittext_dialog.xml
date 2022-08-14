@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:ems="10"
-                android:hint="Nombre"
+                android:hint="@string/nombre_str"
                 android:inputType="textPersonName" />
 
             <Space
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
-                    android:text="Cancel"
+                    android:text="@string/cancel_str"
                     android:textColor="#00BCD4" />
 
                 <Button
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
-                    android:text="OK"
+                    android:text="@string/ok_str"
                     android:textColor="#00BCD4" />
             </LinearLayout>
         </LinearLayout>

@@ -22,7 +22,7 @@
         android:id="@+id/textView0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Asunto"
+        android:text="@string/asunto_str"
         app:layout_constraintBottom_toTopOf="@+id/textView1"
         app:layout_constraintEnd_toStartOf="@+id/nameEditText"
         app:layout_constraintHorizontal_bias="0.5"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Asunto"
+        android:hint="@string/asunto_str"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView0"
@@ -46,7 +46,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lugar"
+        android:text="@string/lugar_str"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView0"
         app:layout_constraintTop_toBottomOf="@+id/textView0" />
@@ -55,7 +55,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Personas"
+        android:text="@string/personas_str"
         app:layout_constraintBottom_toTopOf="@+id/personasScrollView"
         app:layout_constraintStart_toStartOf="@+id/textView1"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
@@ -64,7 +64,7 @@
         android:id="@+id/anadirPersonaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir Persona"
+        android:text="@string/anadirPersona_str"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="@+id/placeAutoText" />
 
@@ -72,7 +72,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gastos"
+        android:text="@string/gastos_str"
         app:layout_constraintBottom_toTopOf="@+id/gastosScrollView"
         app:layout_constraintStart_toStartOf="@+id/personasScrollView"
         app:layout_constraintTop_toBottomOf="@+id/personasScrollView" />
@@ -81,7 +81,7 @@
         android:id="@+id/anadirGastoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AÑADIR GASTO"
+        android:text="@string/anadirGasto_str"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/personasScrollView" />
 
@@ -89,7 +89,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Precio Total: "
+        android:text="@string/preciototaldospuntos_str"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/gastosScrollView"
         app:layout_constraintTop_toBottomOf="@+id/gastosScrollView" />
@@ -177,7 +177,7 @@
         android:id="@+id/placeAutoText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Lugar"
+        android:hint="@string/lugar_str"
         android:minHeight="48dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="@+id/nameEditText"
