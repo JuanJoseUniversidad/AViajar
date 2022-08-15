@@ -110,11 +110,11 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         }
 
         anadirPersona.setOnClickListener {
-            createAddPersonDialog("Añadir persona")
+            createAddPersonDialog(resources.getString(R.string.anadirPersona_str))
         }
 
         anadirGasto.setOnClickListener{
-            createAddGastoDialog("Añadir gasto", null, null)
+            createAddGastoDialog(resources.getString(R.string.anadirGasto_str), null, null)
         }
 
         anadirViaje.setOnClickListener{
@@ -271,7 +271,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
     override fun createAddGastoDialog(title: String, gastoLayout: View?, gasto: Expense?) {
         if (presenter.model.getAuxPeople().size < 1){
-            createAlertDialog("FALTA GENTE", "No puedes tener un gasto sin nadie que lo pague")
+            createAlertDialog(resources.getString(R.string.faltaGente_str), resources.getString(R.string.errorFaltaGente))
             return
         }
         val agDialog: AddGastoDialog = AddGastoDialog(title, gastoLayout, presenter.model, gasto)
@@ -283,14 +283,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle(title)
             dialog.setMessage(text)
-            dialog.setPositiveButton("OK") { dialog, which ->
+            dialog.setPositiveButton(resources.getString(R.string.ok_str)) { dialog, which ->
                 if(function != null){
                     function()
                 }
                 dialog.dismiss()}
 
             if(cancelButton == true){
-                dialog.setNegativeButton("Cancel") { dialog, which ->
+                dialog.setNegativeButton(resources.getString(R.string.cancel_str)) { dialog, which ->
                     dialog.dismiss()}
             }
 
@@ -303,14 +303,14 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle(title)
         dialog.setMessage(text)
-        dialog.setPositiveButton("OK") { dialog, which ->
+        dialog.setPositiveButton(resources.getString(R.string.ok_str)) { dialog, which ->
             if(function != null && parameter != null){
                 function(parameter)
             }
             dialog.dismiss()
         }
 
-        dialog.setNegativeButton("Cancel") { dialog, which ->dialog.dismiss()}
+        dialog.setNegativeButton(resources.getString(R.string.cancel_str)) { dialog, which ->dialog.dismiss()}
         dialog.show()
     }
 
@@ -378,12 +378,12 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             //Edit person
             customLayout.findViewById<FloatingActionButton>(R.id.editPerson).setOnClickListener({
-                createAddPersonDialog("Editar persona",customLayout)
+                createAddPersonDialog(resources.getString(R.string.editarPersona_str),customLayout)
             })
 
             //Delete person
             customLayout.findViewById<FloatingActionButton>(R.id.deletePerson).setOnClickListener({
-                createConfirmationDialog("Borrar persona", "¿Estas seguro de borrar a esta persona?", listOf(linearLayout,customLayout), ::removePerson)
+                createConfirmationDialog(resources.getString(R.string.borrarPersona_str), resources.getString(R.string.confirmacionBorrarPersona_str), listOf(linearLayout,customLayout), ::removePerson)
             })
 
             linearLayout.addView(customLayout)
@@ -399,7 +399,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             if (!internalUse){
                 //Shows dialog to warn the user that a new person its added
-                createAlertDialog("Persona añadida","Persona añadida y gastos reiniciados")
+                createAlertDialog(resources.getString(R.string.personaAnyadida_str),resources.getString(R.string.confirmacionPersonaAnyadida_str))
             }
         }else{
             personLayout.findViewById<TextView>(R.id.personName).text = text
@@ -407,7 +407,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             presenter.editPerson(Person(presenter.getPerson(index).id,text,travelId), index)
             presenter.debugPersonList()
             //Shows dialog to warn the user that a person its edited
-            createAlertDialog("Persona editada","Persona editada con éxito")
+            createAlertDialog(resources.getString(R.string.personaEditada_str),resources.getString(R.string.confirmacionPersonaEditada_str))
         }
     }
 
@@ -425,7 +425,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             //Edit gasto
             customLayout.findViewById<FloatingActionButton>(R.id.editPerson).setOnClickListener({
-                createAddGastoDialog("Editar gasto",customLayout, newExpense)
+                createAddGastoDialog(resources.getString(R.string.editarGasto_str),customLayout, newExpense)
             })
 
             //Delete gasto

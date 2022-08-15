@@ -11,11 +11,30 @@
     <string name="asunto_str">Asunto</string>
     <string name="lugar_str">Lugar</string>
     <string name="personas_str">Personas</string>
+
     <string name="anadirPersona_str">Añadir Persona</string>
+    <string name="personaAnyadida_str">Persona añadida</string>
+    <string name="confirmacionPersonaAnyadida_str">Persona añadida y gastos reiniciados</string>
+
+    <string name="editarPersona_str">Editar Persona</string>
+    <string name="personaEditada_str">Persona Editada</string>
+    <string name="confirmacionPersonaEditada_str">Persona editada con éxito</string>
+
+    <string name="borrarPersona_str">Borrar Persona</string>
+    <string name="confirmacionBorrarPersona_str">¿Estás seguro de borrar a esta persona?</string>
+
     <string name="gastos_str">Gastos</string>
+
     <string name="anadirGasto_str">Añadir Gasto</string>
+
+    <string name="editarGasto_str">Editar Gasto</string>
+
+    <string name="borrarGasto_str">Borrar Gasto</string>
+
     <string name="preciototaldospuntos_str">Precio Total: </string>
     <string name="preciototal_str">Precio Total</string>
+    <string name="faltaGente_str">FALTA GENTE</string>
+    <string name="errorFaltaGente">No puedes tener un gasto sin nadie que lo pague</string>
 
     <!--Tercera Activity-->
     <string name="tituloActivityMostrarViajes_str">Todos los viajes</string >
