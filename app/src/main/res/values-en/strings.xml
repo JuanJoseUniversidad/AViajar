@@ -17,6 +17,9 @@
     <string name="preciototaldospuntos_str">Total Price: </string>
     <string name="preciototal_str">Total Price</string>
 
+    <!--Tercera Activity-->
+    <string name="tituloActivityMostrarViajes_str">All travels</string >
+
     <!--Cosas sueltas-->
     <string name="nombre_str">Name</string>
     <string name="precio_str">Price</string>

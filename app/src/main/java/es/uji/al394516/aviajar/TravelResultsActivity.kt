@@ -30,7 +30,7 @@ class TravelResultsActivity : AppCompatActivity(), ITravelResults {
 
         presenter = PresenterTR(this, Model(applicationContext))
 
-        setTitle("All travels");
+        setTitle(applicationContext.resources.getString(R.string.tituloActivityMostrarViajes_str));
     }
 
 
