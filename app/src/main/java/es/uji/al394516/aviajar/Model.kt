@@ -21,11 +21,11 @@ import java.lang.Exception
 import java.math.BigDecimal
 import kotlin.math.exp
 
-class Model(context: Context) {
+class Model(val externalContext: Context) {
     //Database
-    private val database = TravelDatabase.getInstance(context)
+    private val database = TravelDatabase.getInstance(externalContext)
     //Network
-    private val network = Network.getInstance(context)
+    private val network = Network.getInstance(externalContext)
 
     //lista person
     private var personList:MutableList<Person> = mutableListOf()
@@ -315,5 +315,9 @@ class Model(context: Context) {
                 }
             }
         }
+    }
+
+    fun getResourcesString(R_id: Int): String{
+        return externalContext.resources.getString(R_id)
     }
 }

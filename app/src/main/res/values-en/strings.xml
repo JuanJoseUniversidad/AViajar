@@ -40,4 +40,16 @@
     <!--Fun deleteTravel-->
     <string name="errorBorrando_str">An error happened while deleting the element</string>
 
+    <!--AddGastoDialog-->
+    <string name="nombreRepetido_str">NAME REPEATED</string>
+    <string name="errorRepetido_str">There is already an expense with this name, try a different one.</string>
+    <string name="errorRepetidoVariacion_str">There is already another expense with this name, try a different one.</string>
+    <string name="noHayNombre_str">NO NAME</string>
+    <string name="errorNoHayNombre_str">You have not named the expense</string>
+    <string name="faltaDinero_str">LACK OF MONEY</string>
+    <string name="errorFaltaDinero_str">You are missing to allocate</string>
+    <string name="sobraDinero_str">MONEY TO SPARE</string>
+    <string name="errorSobraDinero_str">You have too much to assign</string>
+    <string name="noHayPrecio_str">NO PRICE</string>
+    <string name="errorNoHayPrecio_str">You have not assigned a price to this expense</string>
 </resources>

@@ -93,7 +93,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
                             ComprobacionFinal(gastoName, gastoPrecio, personaGastoRelationAux)
                         }
                         else{
-                            createAlertDialog("NOMBRE REPETIDO", "Ya existe un gasto con este nombre, prueba otro distinto")
+                            createAlertDialog(model.getResourcesString(R.string.nombreRepetido_str), model.getResourcesString(R.string.errorRepetido_str))
                         }
                     }
                     //estamos editando gasto, da igual repetir nombre si es el de este viaje
@@ -104,7 +104,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
                         }
                         //si existe en la bdd y no es el que estamos editando
                         else if (model.existeGastoInAuxList(gastoName.text.toString())){
-                            createAlertDialog("NOMBRE REPETIDO", "Ya existe otro gasto con este nombre, prueba otro distinto")
+                            createAlertDialog(model.getResourcesString(R.string.nombreRepetido_str), model.getResourcesString(R.string.errorRepetidoVariacion_str))
                         }
                         //nombre nuevo -> machacar
                         else{
@@ -113,7 +113,7 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
                     }
                 }
                 else{
-                    createAlertDialog("NO HAY NOMBRE", "No has puesto nombre al gasto")
+                    createAlertDialog(model.getResourcesString(R.string.noHayNombre_str), model.getResourcesString(R.string.errorNoHayNombre_str))
                     gastoName.setHintTextColor(Color.RED)
                 }
             }
@@ -136,16 +136,16 @@ class AddGastoDialog(val title: String, val gastoLayout: View? = null, val model
             }
             else{
                 if (difference > 0.0){
-                    createAlertDialog("FALTA DINERO", "Te faltan $difference€ por asignar")
+                    createAlertDialog(model.getResourcesString(R.string.faltaDinero_str), model.getResourcesString(R.string.errorFaltaDinero_str) + " " + difference)
                 }
                 else{
                     difference = difference.absoluteValue
-                    createAlertDialog("SOBRA DINERO", "Te sobran $difference€ al asignar")
+                    createAlertDialog(model.getResourcesString(R.string.sobraDinero_str), model.getResourcesString(R.string.errorSobraDinero_str) + " " + difference)
                 }
             }
         }
         else{
-            createAlertDialog("NO HAY PRECIO", "No has asignado precio a este gasto")
+            createAlertDialog(model.getResourcesString(R.string.noHayPrecio_str), model.getResourcesString(R.string.errorNoHayPrecio_str))
             gastoPrecio.setHintTextColor(Color.RED)
         }
     }

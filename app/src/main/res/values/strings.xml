@@ -40,4 +40,17 @@
     <!--Fun deleteTravel-->
     <string name="errorBorrando_str">Ha ocurrido un error borrando el elemento</string>
 
+    <!--AddGastoDialog-->
+    <string name="nombreRepetido_str">NOMBRE REPETIDO</string>
+    <string name="errorRepetido_str">Ya existe un gasto con este nombre, prueba otro distinto</string>
+    <string name="errorRepetidoVariacion_str">Ya existe otro gasto con este nombre, prueba otro distinto</string>
+    <string name="noHayNombre_str">NO HAY NOMBRE</string>
+    <string name="errorNoHayNombre_str">No has puesto nombre al gasto</string>
+    <string name="faltaDinero_str">FALTA DINERO</string>
+    <string name="errorFaltaDinero_str">Te faltan por asignar</string>
+    <string name="sobraDinero_str">SOBRA DINERO</string>
+    <string name="errorSobraDinero_str">Te sobran al asignar</string>
+    <string name="noHayPrecio_str">NO HAY PRECIO</string>
+    <string name="errorNoHayPrecio_str">No has asignado precio a este gasto</string>
+
 </resources>
