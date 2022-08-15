@@ -2,12 +2,12 @@
 <resources>
     <string name="app_name">AViajar</string>
 
-
+    <!--Primera Activity-->
     <string name="nuevoViaje_str">Nuevo Viaje</string>
     <string name="mirarViajes_str">Mirar Viajes</string>
     <string name="authors_str">Autores: \nJuan José Gómez Simón \nAdrián Mon Maroto</string>
 
-
+    <!--Segunda Activity-->
     <string name="asunto_str">Asunto</string>
     <string name="lugar_str">Lugar</string>
     <string name="personas_str">Personas</string>
@@ -17,11 +17,27 @@
     <string name="preciototaldospuntos_str">Precio Total: </string>
     <string name="preciototal_str">Precio Total</string>
 
-
+    <!--Cosas sueltas-->
     <string name="nombre_str">Nombre</string>
     <string name="precio_str">Precio</string>
     <string name="cancel_str">Cancelar</string>
     <string name="ok_str">OK</string>
 
     <string name="nPersonas_str">Nº Personas</string>
+
+    <!--Custom Dialogs Strings-->
+    <string name="noAnyadido_str">No se puede añadir</string>
+    <string name="debeTenerNombre_str">El viaje ha de tener un nombre</string>
+    <string name="debeTenerLugar_str">El viaje ha de tener un lugar</string>
+    <string name="debeTenerPersonaYGasto_str">El viaje ha de tener al menos una persona y un gasto</string>
+    <string name="viajeInsertado_str">Viaje insertado</string>
+    <string name="viajeAgregadoBDD_str">Viaje agregado a la base de datos con éxito</string>
+
+    <!--Fun showDeleteTravel-->
+    <string name="eliminarViaje_str">Eliminar Viaje</string>
+    <string name="confirmarEliminacion_str">Este viaje se borrara, ¿está seguro?</string>
+
+    <!--Fun deleteTravel-->
+    <string name="errorBorrando_str">Ha ocurrido un error borrando el elemento</string>
+
 </resources>

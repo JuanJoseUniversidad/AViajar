@@ -317,6 +317,10 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
     override fun setEEImage(image: Int) {
         eeImage.setImageResource(image)
     }
+
+    override fun getResourceString(R_id: Int): String {
+        return resources.getString(R_id)
+    }
     //endregion
 
     /**

@@ -23,4 +23,5 @@ interface ITravelEdition {
     fun deleteTravel()
     fun toMainActivity()
     fun setEEImage(image: Int)
+    fun getResourceString(R_id: Int) : String
 }

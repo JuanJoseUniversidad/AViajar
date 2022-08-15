@@ -1,7 +1,5 @@
 package es.uji.al394516.aviajar
 
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.LinearLayout
 import es.uji.al394516.aviajar.classes.Expense
@@ -116,19 +114,19 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
 
     fun insertTravel(id:Int,name:String,place:String){
         if(name == ""){
-            view.createAlertDialog("No se puede añadir","EL viaje ha de tener un nombre")
+            view.createAlertDialog(view.getResourceString(R.string.noAnyadido_str),view.getResourceString(R.string.debeTenerNombre_str))
 
         }else if(place==""){
-            view.createAlertDialog("No se puede añadir","EL viaje ha de tener un lugar")
+            view.createAlertDialog(view.getResourceString(R.string.noAnyadido_str),view.getResourceString(R.string.debeTenerLugar_str))
 
         }else if(model.getAuxPeople().size < 1 || model.getAuxGasto().size < 1) {
-            view.createAlertDialog("No se puede añadir","EL viaje ha de tener al menos una persona y un gasto")
+            view.createAlertDialog(view.getResourceString(R.string.noAnyadido_str),view.getResourceString(R.string.debeTenerPersonaYGasto_str))
 
         }else{
             model.deleteTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()),{
                 model.insertTravelDatabase(id, name, place)
                 view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
-                view.createAlertDialog("Viaje insertado","Viaje agregado a la base de datos con exito", view::toMainActivity)
+                view.createAlertDialog(view.getResourceString(R.string.viajeInsertado_str),view.getResourceString(R.string.viajeAgregadoBDD_str), view::toMainActivity)
             },{
                 view.setTravel(Travel(id,name,place,model.getAuxPeople(),model.getAuxGasto()))
                 //view.showMessage(it.toString())
@@ -138,14 +136,14 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
     }
 
     fun showDeleteTravel(){
-        view.createAlertDialog("Viaje eliminado","Este viaje se borrara ¿esta seguro?", view::deleteTravel, true)
+        view.createAlertDialog(view.getResourceString(R.string.eliminarViaje_str),view.getResourceString(R.string.confirmarEliminacion_str), view::deleteTravel, true)
     }
 
     fun deleteTravel(travel:Travel?){
         model.deleteTravel(travel,{
             view.toMainActivity()
         },{
-            view.showMessage("Ha ocurrido un error borrando el elemento")
+            view.showMessage(view.getResourceString(R.string.errorBorrando_str))
         })
     }
 
