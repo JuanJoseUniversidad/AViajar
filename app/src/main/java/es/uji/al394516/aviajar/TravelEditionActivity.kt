@@ -430,7 +430,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
             //Delete gasto
             customLayout.findViewById<FloatingActionButton>(R.id.deletePerson).setOnClickListener({
-                createConfirmationDialog("Borrar gasto", "¿Estas seguro de borrar este gasto?", listOf(linearLayout, customLayout), ::removeGasto)
+                createConfirmationDialog(resources.getString(R.string.borrarGasto_str), resources.getString(R.string.msgBorrarGasto_str), listOf(linearLayout, customLayout), ::removeGasto)
             })
 
             presenter.addNewExpense(newExpense)
@@ -443,7 +443,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
             val editButton = gastoLayout.findViewById<FloatingActionButton>(R.id.editPerson)
             editButton.setOnClickListener(null)
             editButton.setOnClickListener({
-                createAddGastoDialog("Editar gasto",gastoLayout, newExpense)
+                createAddGastoDialog(resources.getString(R.string.editarGasto_str),gastoLayout, newExpense)
             })
 
             val index = linearLayout.indexOfChild(gastoLayout)
@@ -457,9 +457,9 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         if (!internalUse){
             var message: String
             if (gastoLayout == null){
-                message = "Gasto añadido"
+                message = resources.getString(R.string.gastoAniadido_str)
             }else{
-                message = "Gasto editado"
+                message = resources.getString(R.string.gastoEditado_str)
             }
             val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
             toast.show()
@@ -495,13 +495,13 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
 
         //si no se ha borrado persona es porque es la ultima persona
         if (!personaBorrada){
-            createAlertDialog("ÚLTIMA PERSONA", "No puedes hacer un viaje sin gente")
+            createAlertDialog(resources.getString(R.string.ultimaPersona_str), resources.getString(R.string.errorUltimaPersona_str))
             return
         }
         linearLayout.removeView(personLayout)
 
         presenter.resetAllExpensesPerPerson()//Resets the values of the map for each expense
-        createAlertDialog("Persona borrada", "Persona borrada y gastos reiniciados");
+        createAlertDialog(resources.getString(R.string.personaBorrada_str), resources.getString(R.string.msgPersonaBorrada_str));
     }
 
     private fun <T> removeGasto(parameters: List<T>?){
@@ -511,7 +511,7 @@ class TravelEditionActivity : AppCompatActivity(), ITravelEdition, IDialogsFunct
         presenter.deleteGasto(gastoLayout, linearLayout)
         presenter.setPrecioTotal()
 
-        val toast = Toast.makeText(applicationContext, "Gasto borrado", Toast.LENGTH_LONG)
+        val toast = Toast.makeText(applicationContext, resources.getString(R.string.gastoBorrado_str), Toast.LENGTH_LONG)
         toast.show()
     }
 
