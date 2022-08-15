@@ -6,7 +6,10 @@
     <string name="nuevoViaje_str">Nuevo Viaje</string>
     <string name="mirarViajes_str">Mirar Viajes</string>
     <string name="authors_str">Autores: \nJuan José Gómez Simón \nAdrián Mon Maroto</string>
-
+    
+    <!--Primera Activity Presenter-->
+    <string name="errorBaseDatos_str">No existe ningun viaje en la base de datos</string>
+    
     <!--Segunda Activity-->
     <string name="asunto_str">Asunto</string>
     <string name="lugar_str">Lugar</string>
@@ -30,7 +33,18 @@
     <string name="editarGasto_str">Editar Gasto</string>
 
     <string name="borrarGasto_str">Borrar Gasto</string>
+    <string name="msgBorrarGasto_str">¿Estas seguro de borrar este gasto?</string>
 
+    <string name="gastoAniadido_str">Gasto añadido</string>
+    <string name="gastoEditado_str">Gasto editado</string>
+    <string name="gastoBorrado_str">Gasto borrado</string>
+    
+    <string name="ultimaPersona_str">ÚLTIMA PERSONA</string>
+    <string name="errorUltimaPersona_str">No puedes hacer un viaje sin gente</string>
+    
+    <string name="personaBorrada_str">Persona borrada</string>
+    <string name="msgPersonaBorrada_str">Persona borrada y gastos reiniciados</string>
+    
     <string name="preciototaldospuntos_str">Precio Total: </string>
     <string name="preciototal_str">Precio Total</string>
     <string name="faltaGente_str">FALTA GENTE</string>
