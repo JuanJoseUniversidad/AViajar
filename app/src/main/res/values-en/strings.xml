@@ -7,6 +7,9 @@
     <string name="mirarViajes_str">See Travels</string>
     <string name="authors_str">Authors: \nJuan José Gómez Simón \nAdrián Mon Maroto</string>
 
+    <!--Primera Activity Presenter-->
+    <string name="errorBaseDatos_str">There is no travel in the database.</string>
+    
     <!--Segunda Activity-->
     <string name="asunto_str">Subject</string>
     <string name="lugar_str">Place</string>
@@ -30,7 +33,18 @@
     <string name="editarGasto_str">Edit Expense</string>
 
     <string name="borrarGasto_str">Delete Expense</string>
+    <string name="msgBorrarGasto_str">Are you sure to delete this expense?</string>
+    
+    <string name="gastoAniadido_str">Added expense</string>
+    <string name="gastoEditado_str">Edited expense</string>
+    <string name="gastoBorrado_str">Deleted expense</string>
+    
+    <string name="ultimaPersona_str">LAST PERSON</string>
+    <string name="errorUltimaPersona_str">You can't make a travel without people</string>
 
+    <string name="personaBorrada_str">Person deleted</string>
+    <string name="msgPersonaBorrada_str">Person deleted and expenses reset</string>
+    
     <string name="preciototaldospuntos_str">Total Price: </string>
     <string name="preciototal_str">Total Price</string>
     <string name="faltaGente_str">LACK OF PEOPLE</string>
