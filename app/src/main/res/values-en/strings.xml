@@ -40,7 +40,7 @@
     <string name="gastoBorrado_str">Deleted expense</string>
     
     <string name="ultimaPersona_str">LAST PERSON</string>
-    <string name="errorUltimaPersona_str">You can't make a travel without people</string>
+    <string name="errorUltimaPersona_str">You can\'t make a travel without people</string>
 
     <string name="personaBorrada_str">Person deleted</string>
     <string name="msgPersonaBorrada_str">Person deleted and expenses reset</string>
