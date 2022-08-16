@@ -160,16 +160,22 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
         var eeNecesaryConditions = false
         var image: Int? = null
 
+        val people = model.getAuxPeople()
+        val expenses = model.getAuxGasto()
+
         /**
-         * If there is EE:
+         * Check if eeNecesaryConditions is false
+         * Then check If there is EE:
          *  1º set eeNecesaryConditions to true
          *  2º set the "path" of the image (R.drawable...)
          */
         //region EasterEggs
-        //EE1
-        if (travelName == "EasterEgg"){
-            eeNecesaryConditions = true
-            image = R.drawable.prueba_png
+        //EE1   Monchito001
+        if (!eeNecesaryConditions){
+            if (travelName == "25.07.20" && placeName == "Colombia" && people.count() == 2 && people[0].name == "Monchito" && people[1].name == "Señora" && expenses.count() == 1 && expenses[0].name == "Pulseras"){
+                eeNecesaryConditions = true
+                image = R.drawable.yellow_heart_90
+            }
         }
 
         //EE...
