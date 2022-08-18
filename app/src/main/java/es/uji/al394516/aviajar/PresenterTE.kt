@@ -177,7 +177,14 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
                 image = R.drawable.yellow_heart_90
             }
         }
-
+        
+        //EE2
+        if (!eeNecesaryConditions){
+            if (travelName == "r/Place" && placeName == "France" && people.count() == 1 && expenses.count() == 1 && expenses[0].name == "Bots"){
+                eeNecesaryConditions = true
+                image = R.drawable.blank
+            }
+        }
         //EE...
         //else if(...)
         //EEn
