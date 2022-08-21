@@ -7,6 +7,11 @@ import androidx.room.*
 @Dao
 interface ITravelsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCountry(country: CountryEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCountries(countries: Array<CountryEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTravel(travel: TravelEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTravels(travels: Array<TravelEntity>)
@@ -40,6 +45,9 @@ interface ITravelsDAO {
     public fun deletePersonExpense(vararg personExpense: PersonExpenseEntity)
 
 
+
+    @Query("SELECT * FROM CountryEntity ORDER BY id")
+    fun readAllCountries(): List<CountryEntity>
 
     @Query("SELECT * FROM TravelEntity ORDER BY name")
     fun readAllTravels():List<TravelEntity>
