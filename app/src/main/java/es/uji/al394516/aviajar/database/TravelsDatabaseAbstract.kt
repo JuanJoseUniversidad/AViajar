@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
+        CountryEntity:: class,
         ExpenseEntity::class,
         PersonEntity::class,
         TravelEntity::class,

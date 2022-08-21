@@ -226,13 +226,35 @@ class Model(val externalContext: Context) {
     fun getPlaces(listener: Response.Listener<List<String>>, errorListener: Response.ErrorListener) /*: Array<Ingredients>*/{
         // Launch a coroutine
         GlobalScope.launch(Dispatchers.Main) {
+            val countries = withContext(Dispatchers.IO) {
+                database.dao.readAllCountries()
+            }
+            if (countries.isEmpty()){
                 // Recover categories from the net
-            network.getPlaces(Response.Listener {
-                // Pass the categories to the listener
-                listener.onResponse(it)
-            }, Response.ErrorListener {
-                errorListener.onErrorResponse(it)
-            })
+                network.getPlaces(Response.Listener {
+                    //save the countries in the bdd
+                    var countryEntities = ArrayList<CountryEntity>()
+                    GlobalScope.launch {
+                        for (str in it) {
+                            database.dao.insertCountry(CountryEntity(str))
+                        }
+                    }
+                    // Pass the categories to the listener
+                    listener.onResponse(it)
+                }, Response.ErrorListener {
+                    errorListener.onErrorResponse(it)
+                })
+            }
+            else {
+                var countriesString = ArrayList<String>()
+
+                for (country in countries){
+                    countriesString.add(country.id)
+                }
+
+                listener.onResponse(countriesString)
+            }
+
         }
     }
 
