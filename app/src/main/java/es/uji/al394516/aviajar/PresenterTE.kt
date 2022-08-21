@@ -178,7 +178,7 @@ class PresenterTE(val view: ITravelEdition, val model: Model) {
             }
         }
         
-        //EE2
+        //EE2   Juanjo001
         if (!eeNecesaryConditions){
             if (travelName == "r/Place" && placeName == "France" && people.count() == 1 && expenses.count() == 1 && expenses[0].name == "Bots"){
                 eeNecesaryConditions = true
